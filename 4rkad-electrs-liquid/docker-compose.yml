@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: 4rkad-electrs-liquid_electrs_1
+      APP_PORT: 60601
+
+  electrs:
+    image: ghcr.io/4rkad/electrs-liquid-umbrel:v0.4.1
+    restart: on-failure
+    stop_grace_period: 30s
+    user: "1000:1000"
+    volumes:
+      - "${APP_DATA_DIR}/data/electrs:/data"
+    command:
+      - --network
+      - liquid
+      - --daemon-rpc-addr
+      - "elements_node_1:7041"
+      - --cookie
+      - "elements:${APP_PASSWORD}"
+      - --electrum-rpc-addr
+      - "0.0.0.0:60601"
+      - --db-dir
+      - /data/db
+      - --daemon-p2p-addr
+      - "elements_node_1:18332"
+
+  tor:
+    image: getumbrel/tor:0.4.7.8@sha256:2ace83f22501f58857fa9b403009f595137fa2e7986c4fda79d82a8119072b6a
+    user: "1000:1000"
+    restart: on-failure
+    volumes:
+      - ${APP_DATA_DIR}/torrc:/etc/tor/torrc:ro
+      - ${TOR_DATA_DIR}:/data
+    environment:
+      HOME: "/tmp"

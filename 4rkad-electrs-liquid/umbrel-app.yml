@@ -1,0 +1,40 @@
+manifestVersion: 1
+id: 4rkad-electrs-liquid
+category: bitcoin
+name: Electrs Liquid
+version: "0.4.1"
+tagline: Personal Electrum server for the Liquid Network
+description: >-
+  Run your personal Electrum server for the Liquid Network and connect your
+  wallet to it instead of relying on Blockstream's public servers.
+
+
+  Without your own server, your wallet queries Blockstream's infrastructure
+  to check balances and transactions — leaking which addresses are yours.
+  Even though Liquid uses Confidential Transactions (hidden amounts and assets),
+  the transaction graph is still visible. Input ownership heuristics still apply,
+  and swaps used to enter/exit Liquid can correlate amounts, origin, and destination.
+
+
+  With Electrs Liquid, all wallet queries stay local. Nobody can build a profile
+  of your Liquid activity.
+
+
+  Requires the Elements Core app to be installed and synced.
+releaseNotes: >-
+  Initial release. Electrum protocol server for the Liquid Network,
+  built from Blockstream's electrs fork with the liquid feature flag.
+icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
+developer: 4rkad
+website: https://github.com/4rkad
+dependencies:
+  - elements
+repo: https://github.com/4rkad/electrs-liquid-umbrel
+support: https://github.com/4rkad/electrs-liquid-umbrel/issues
+port: 3062
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: 4rkad
+submission: ""

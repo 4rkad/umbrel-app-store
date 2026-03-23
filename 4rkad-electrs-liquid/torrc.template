@@ -1,0 +1,2 @@
+HiddenServiceDir /data/app-{{APP_ID}}/main
+HiddenServicePort 60601 4rkad-electrs-liquid_electrs_1:60601

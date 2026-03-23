@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a9fff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d5ca8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="40" fill="url(#bg)"/>
+  <!-- Liquid "L" shape -->
+  <path d="M60 45 L60 135 L130 135" stroke="white" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Electrum bolt -->
+  <path d="M120 55 L105 95 L125 95 L108 145" stroke="#ffd700" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Connection dots -->
+  <circle cx="60" cy="45" r="6" fill="white"/>
+  <circle cx="130" cy="135" r="6" fill="white"/>
+  <circle cx="108" cy="145" r="6" fill="#ffd700"/>
+</svg>
