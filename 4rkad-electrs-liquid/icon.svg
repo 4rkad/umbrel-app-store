@@ -4,11 +4,8 @@
     <stop stop-color="#91DBFB"/>
     <stop offset="1" stop-color="#316DE4"/>
   </linearGradient>
-  <clipPath id="roundedRect">
-    <rect width="256" height="256" rx="48"/>
-  </clipPath>
 </defs>
-<g clip-path="url(#roundedRect)">
+<g>
   <!-- Background -->
   <rect width="256" height="256" fill="url(#paint0_linear)"/>
   <!-- Electrum gear -->
