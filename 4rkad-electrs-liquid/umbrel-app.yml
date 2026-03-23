@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.4.4"
+version: "0.4.5"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
@@ -22,8 +22,9 @@ description: >-
 
   Requires the Elements Core app to be installed and synced.
 releaseNotes: >-
+  Fixed Tor hidden service (torrc template variable not being replaced).
+  Fixed nginx tor-hostname endpoint returning 301.
   Fixed copy button on HTTP connections.
-  Fixed Tor address detection with retry mechanism.
   QR code and auto-detected local/Tor addresses.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
 developer: 4rkad
