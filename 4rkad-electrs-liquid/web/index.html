@@ -308,15 +308,20 @@ updateDisplay();
 
 // Status check
 function updateStatus() {
-  fetch('/status').then(function(r) { return r.json(); }).then(function(data) {
-    if (data && data.blockHeight) {
-      var pct = data.syncPercent || 100;
-      document.getElementById('syncInfo').textContent =
-        pct >= 99.9 ? '100% Synchronized' : Math.floor(pct) + '% Synchronized';
-      document.getElementById('progressFill').style.width = Math.min(100, pct) + '%';
+  fetch('/api/blocks/tip/height').then(function(r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.text();
+  }).then(function(height) {
+    var h = parseInt(height.trim(), 10);
+    if (h > 0) {
+      document.getElementById('syncInfo').textContent = 'Block ' + h.toLocaleString();
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('statusDot').style.background = '#00cd98';
+      document.getElementById('statusText').textContent = 'Running';
+      document.getElementById('statusText').style.color = '#00cd98';
     }
   }).catch(function() {
-    document.getElementById('syncInfo').textContent = 'Waiting for Elements to finish syncing...';
+    document.getElementById('syncInfo').textContent = 'Indexing Liquid blockchain...';
     document.getElementById('progressFill').style.width = '0%';
     document.getElementById('statusDot').style.background = '#f0883e';
     document.getElementById('statusText').textContent = 'Syncing';

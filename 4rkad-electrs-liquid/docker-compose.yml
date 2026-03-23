@@ -31,6 +31,8 @@ services:
       - "elements:${APP_ELECTRS_LIQUID_ELEMENTS_RPC_PASS}"
       - --electrum-rpc-addr
       - "0.0.0.0:60601"
+      - --http-addr
+      - "0.0.0.0:3000"
       - --db-dir
       - /data/db
 
