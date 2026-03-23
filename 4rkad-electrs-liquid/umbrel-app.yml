@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.5.2"
+version: "0.5.3"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
@@ -22,9 +22,10 @@ description: >-
 
   Requires the Elements Core app to be installed and synced.
 releaseNotes: >-
-  Use --jsonrpc-import for reliable RPC-based indexing.
-  Added verbose logging for sync visibility.
-  Live sync status from electrs HTTP API.
+  Fix OOM crash during initial sync on home servers. Now uses --jsonrpc-import
+  to fetch blocks via RPC instead of loading all blk*.dat files into memory.
+  Parallelism raised to 4 for faster sync. Memory usage is now constant
+  regardless of chain size.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
 developer: 4rkad
 website: https://github.com/4rkad

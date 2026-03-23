@@ -43,7 +43,8 @@ services:
       - --db-write-buffer-size-mb
       - "64"
       - --daemon-parallelism
-      - "1"
+      - "4"
+      - --jsonrpc-import
 
   tor:
     image: getumbrel/tor:0.4.7.8@sha256:2ace83f22501f58857fa9b403009f595137fa2e7986c4fda79d82a8119072b6a
