@@ -24,8 +24,6 @@ services:
       - "0.0.0.0:60601"
       - --db-dir
       - /data/db
-      - --daemon-p2p-addr
-      - "elements_node_1:18332"
 
   tor:
     image: getumbrel/tor:0.4.7.8@sha256:2ace83f22501f58857fa9b403009f595137fa2e7986c4fda79d82a8119072b6a
