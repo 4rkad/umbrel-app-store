@@ -270,16 +270,38 @@ function selectNetwork(network) {
 
 function copyField(id, btn) {
   var text = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text).then(function() {
-    btn.classList.add('copied');
-    setTimeout(function() { btn.classList.remove('copied'); }, 1500);
-  });
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  btn.classList.add('copied');
+  setTimeout(function() { btn.classList.remove('copied'); }, 1500);
 }
 
-// Fetch Tor hostname
-fetch('/tor-hostname').then(function(r) { return r.text(); }).then(function(t) {
-  torAddr = t.trim();
-}).catch(function() { torAddr = 'Not available'; });
+// Fetch Tor hostname (retry — tor container may start after web)
+function fetchTorHostname() {
+  fetch('/tor-hostname').then(function(r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.text();
+  }).then(function(t) {
+    var addr = t.trim();
+    if (addr && addr.indexOf('.onion') !== -1) {
+      torAddr = addr;
+      if (currentNetwork === 'tor') updateDisplay();
+    } else {
+      setTimeout(fetchTorHostname, 10000);
+    }
+  }).catch(function() { setTimeout(fetchTorHostname, 10000); });
+}
+fetchTorHostname();
 
 // Initialize display
 updateDisplay();
