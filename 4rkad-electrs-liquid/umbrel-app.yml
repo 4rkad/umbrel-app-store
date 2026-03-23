@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.4.2"
+version: "0.4.3"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
@@ -22,9 +22,9 @@ description: >-
 
   Requires the Elements Core app to be installed and synced.
 releaseNotes: >-
-  Added web interface showing connection details (local/Tor toggle).
-  New icon combining Electrum and Liquid branding.
-  Fixed startup arguments.
+  Web interface now shows QR code and auto-detects local/Tor addresses.
+  Fixed icon rendering in Umbrel dashboard.
+  Layout matches official Electrs Bitcoin app style.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
 developer: 4rkad
 website: https://github.com/4rkad
