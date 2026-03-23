@@ -7,7 +7,7 @@ services:
       APP_PORT: 60601
 
   electrs:
-    image: ghcr.io/4rkad/electrs-liquid-umbrel:v0.4.1
+    image: ghcr.io/4rkad/electrs-liquid:v0.4.1
     restart: on-failure
     stop_grace_period: 30s
     user: "1000:1000"
