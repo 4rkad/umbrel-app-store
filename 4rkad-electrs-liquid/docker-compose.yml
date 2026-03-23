@@ -22,6 +22,7 @@ services:
     user: "1000:1000"
     volumes:
       - "${APP_DATA_DIR}/data/electrs:/data"
+      - "${APP_DATA_DIR}/../elements/data/liquidv1:/data/.bitcoin/liquidv1:ro"
     command:
       - --network
       - liquid
