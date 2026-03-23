@@ -20,8 +20,10 @@ services:
     restart: on-failure
     stop_grace_period: 30s
     user: "1000:1000"
+    mem_limit: 4g
     volumes:
       - "${APP_DATA_DIR}/data/electrs:/data"
+      - "${APP_DATA_DIR}/../elements/data:/data/.bitcoin:ro"
     command:
       - -vv
       - --network
@@ -34,9 +36,14 @@ services:
       - "0.0.0.0:60601"
       - --http-addr
       - "0.0.0.0:3000"
-      - --jsonrpc-import
       - --db-dir
       - /data/db
+      - --db-block-cache-mb
+      - "2"
+      - --db-write-buffer-size-mb
+      - "64"
+      - --daemon-parallelism
+      - "1"
 
   tor:
     image: getumbrel/tor:0.4.7.8@sha256:2ace83f22501f58857fa9b403009f595137fa2e7986c4fda79d82a8119072b6a
