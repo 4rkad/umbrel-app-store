@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.5.8"
+version: "0.5.9"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
@@ -22,9 +22,8 @@ description: >-
 
   Requires the Elements Core app to be installed and synced.
 releaseNotes: >-
-  Fix Tor onion address display. Redesigned web UI with new logo and favicon.
-  Works out of the box — no terminal access needed. Clearnet support
-  (port 60601) for direct wallet connections over LAN or WireGuard.
+  Fix Tor onion address display in web UI. Onion address is now injected
+  via envsubst (same pattern as Fulcrum/Bitcoin apps). Scaled up UI 25%.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
 developer: 4rkad
 website: https://github.com/4rkad
