@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.6.3"
+version: "0.7.0"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
@@ -22,9 +22,10 @@ description: >-
 
   Requires the Elements Core app to be installed and synced.
 releaseNotes: >-
-  Redesigned web UI to match Electrs Bitcoin and Fulcrum style.
-  QR code with Umbrel logo, dashed input fields, animated toggle,
-  copy button feedback, and updated icon with exact Elements Core badge.
+  Cookie file fix: app now reads RPC credentials directly from disk
+  instead of capturing them at install time. This fixes the issue where
+  installing with Elements Core not yet synced required a manual restart.
+  Version number in web UI now updates automatically.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
 developer: 4rkad
 website: https://github.com/4rkad

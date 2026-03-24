@@ -1,13 +1,9 @@
 export APP_ELECTRS_LIQUID_NODE_PORT="60601"
 
-# Elements RPC credentials (read from running container)
-# Try both Docker Compose v1 (underscore) and v2 (hyphen) naming
-local elements_container=$(docker ps --filter name=elements --format '{{.Names}}' 2>/dev/null | grep -E 'elements.node' | head -1)
-local elements_rpc_pass=""
-if [ -n "$elements_container" ]; then
-    elements_rpc_pass=$(docker inspect "$elements_container" --format '{{range .Config.Cmd}}{{.}} {{end}}' 2>/dev/null | grep -oP '(?<=-rpcpassword=)\S+' | head -1)
-fi
-export APP_ELECTRS_LIQUID_ELEMENTS_RPC_PASS="${elements_rpc_pass:-}"
+# App version (read from umbrel-app.yml so it stays in sync automatically)
+local app_dir="$(dirname "${BASH_SOURCE[0]:-$0}")"
+local app_version=$(grep '^version:' "${app_dir}/umbrel-app.yml" 2>/dev/null | sed 's/.*"\(.*\)".*/\1/')
+export APP_ELECTRS_LIQUID_VERSION="${app_version:-0.0.0}"
 
 # Tor onion address
 local rpc_hidden_service_file="${EXPORTS_TOR_DATA_DIR}/app-${EXPORTS_APP_ID}/main/hostname"
