@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.6.0"
+version: "0.6.1"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
