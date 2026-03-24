@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.5.6"
+version: "0.5.7"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
@@ -22,9 +22,9 @@ description: >-
 
   Requires the Elements Core app to be installed and synced.
 releaseNotes: >-
-  Works out of the box — no terminal access needed. Data directory permissions
-  are now set automatically on first start. Also includes clearnet support
-  (port 60601) for direct wallet connections over LAN or WireGuard.
+  Redesigned web UI with new logo, favicon, and cleaner layout. Works out of
+  the box — no terminal access needed. Clearnet support (port 60601) for
+  direct wallet connections over LAN or WireGuard.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
 developer: 4rkad
 website: https://github.com/4rkad
