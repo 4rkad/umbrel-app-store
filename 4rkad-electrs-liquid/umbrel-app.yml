@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.7.1"
+version: "0.7.2"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
@@ -22,9 +22,9 @@ description: >-
 
   Requires the Elements Core app to be installed and synced.
 releaseNotes: >-
-  Entrypoint now resolves Elements RPC password at container startup.
-  If the password is not available at install time (Elements not running),
-  the container reads it from a persisted file on next restart.
+  Entrypoint resolves Elements RPC password at container startup.
+  Fixed sync status flickering between Running and Syncing.
+  Improved startup message while connecting to Elements Core.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
 developer: 4rkad
 website: https://github.com/4rkad
