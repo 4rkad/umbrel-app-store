@@ -1,7 +1,7 @@
 export APP_ELECTRS_LIQUID_NODE_PORT="60601"
 
 # App version — update here when bumping version in umbrel-app.yml
-export APP_ELECTRS_LIQUID_VERSION="0.7.0"
+export APP_ELECTRS_LIQUID_VERSION="0.7.1"
 
 # Elements RPC password
 # Try docker inspect first (works when Elements is running)
@@ -12,7 +12,7 @@ if [ -n "$elements_container" ]; then
 fi
 
 # Persist password for reboots (pattern from Bitcoin app .env)
-local pass_file="${EXPORTS_APP_DIR}/data/.elements_rpc_pass"
+local pass_file="${EXPORTS_APP_DIR}/data/electrs/.elements_rpc_pass"
 if [ -n "$elements_rpc_pass" ]; then
     echo "$elements_rpc_pass" > "$pass_file" 2>/dev/null || true
 elif [ -f "$pass_file" ]; then

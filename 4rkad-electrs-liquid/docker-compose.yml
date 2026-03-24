@@ -29,6 +29,8 @@ services:
     volumes:
       - "${APP_DATA_DIR}/data/electrs:/data"
       - "${APP_DATA_DIR}/../elements/data:/data/.bitcoin:ro"
+    environment:
+      ELEMENTS_RPC_PASSWORD: "${APP_ELECTRS_LIQUID_ELEMENTS_RPC_PASS}"
     command:
       - -vv
       - --network
