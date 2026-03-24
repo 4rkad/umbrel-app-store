@@ -350,7 +350,8 @@ if (torAddr.indexOf('.onion') === -1) torAddr = '';
 // Initialize display immediately
 updateDisplay();
 
-// Status check
+// Status check — distinguish Elements not synced vs Electrs indexing
+var lastHeight = 0;
 function checkStatus() {
   fetch('/api/blocks/tip/height').then(function(r) {
     if (!r.ok) throw new Error(r.status);
@@ -358,12 +359,22 @@ function checkStatus() {
   }).then(function(height) {
     var h = parseInt(height.trim(), 10);
     if (h > 0) {
-      updateSyncStatus(h);
+      if (h > lastHeight && lastHeight > 0) {
+        // Height is increasing — Electrs is still indexing
+        document.getElementById('syncIndicator').className = 'sync-indicator syncing';
+        document.getElementById('syncText').textContent = 'Syncing';
+        document.getElementById('blockHeight').textContent = '— Indexing Liquid blockchain... Block ' + h.toLocaleString();
+      } else {
+        // Height stable — fully synced
+        updateSyncStatus(h);
+      }
+      lastHeight = h;
     }
   }).catch(function() {
+    // Electrs not responding — Elements Core likely not synced yet
     document.getElementById('syncIndicator').className = 'sync-indicator syncing';
-    document.getElementById('syncText').textContent = 'Syncing';
-    document.getElementById('blockHeight').textContent = '— Indexing Liquid blockchain...';
+    document.getElementById('syncText').textContent = 'Waiting';
+    document.getElementById('blockHeight').textContent = '— Waiting for Elements Core to finish syncing...';
   });
 }
 
