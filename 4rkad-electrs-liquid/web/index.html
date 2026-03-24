@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.25">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Electrs Liquid</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <style>
@@ -11,14 +11,13 @@
     --card: #16213e;
     --text: #e2e8f0;
     --text-muted: #94a3b8;
-    --accent: #2dd4a8;
-    --accent-dim: rgba(45,212,168,0.15);
-    --border: #2a2a4a;
-    --input-bg: #0f0f23;
+    --accent: #00CD98;
+    --accent-dim: rgba(0,205,152,0.15);
+    --border: #4b5563;
+    --input-bg: #0f172a;
     --orange: #f59e0b;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { font-size: 20px; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
@@ -30,124 +29,147 @@
   .main-screen {
     display: flex;
     justify-content: center;
-    padding: 2.5rem 1.5rem;
+    padding: 3.5rem 1.5rem;
     min-height: 100vh;
   }
-  .container { max-width: 940px; width: 100%; font-size: 1.1rem; }
+  .container { max-width: 960px; width: 100%; }
 
-  /* Header */
+  /* Header — matches Electrs Bitcoin: w-32 h-32 icon, text-5xl title */
   .header {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
-    margin-bottom: 0.6rem;
+    gap: 1.5rem;
+    margin-bottom: 0.5rem;
   }
-  .header-icon { width: 88px; height: 88px; border-radius: 18px; }
+  .header-icon { width: 128px; height: 128px; border-radius: 24px; }
   .header-info { flex: 1; }
-  .header-top { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-  .app-name { font-size: 2.2rem; font-weight: 700; }
-  .version { color: var(--text-muted); font-size: 0.85rem; }
-  .sync-badge {
-    display: inline-flex;
+  .header-top { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .sync-indicator {
+    display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 5px 14px;
-    border-radius: 999px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    gap: 0.25rem;
   }
-  .sync-badge.synced { background: var(--accent-dim); color: var(--accent); }
-  .sync-badge.syncing { background: rgba(245,158,11,0.15); color: var(--orange); }
-  .sync-badge-dot {
+  .sync-dot {
     width: 8px; height: 8px;
     border-radius: 50%;
     display: inline-block;
   }
-  .sync-badge.synced .sync-badge-dot { background: var(--accent); }
-  .sync-badge.syncing .sync-badge-dot { background: var(--orange); }
-
-  .separator { height: 1px; background: var(--border); margin: 1.5rem 0; }
+  .sync-indicator.synced .sync-dot { background: var(--accent); }
+  .sync-indicator.synced .sync-text { color: var(--accent); }
+  .sync-indicator.syncing .sync-dot { background: var(--orange); }
+  .sync-indicator.syncing .sync-text { color: var(--orange); }
+  .sync-text { font-size: 1.125rem; }
+  .app-name { font-size: 3rem; font-weight: 600; }
+  .version { color: var(--text-muted); font-size: 1rem; margin-top: 0.5rem; }
 
   /* Description */
   .description {
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 
-  /* Toggle */
-  .toggle-wrapper { display: flex; justify-content: center; margin-bottom: 1.5rem; }
-  .toggle {
+  /* Toggle — matches Electrs Bitcoin pill toggle */
+  .toggle-wrapper { display: flex; justify-content: center; margin-bottom: 2rem; }
+  .toggle-container {
     display: inline-flex;
-    background: var(--input-bg);
-    border-radius: 999px;
+    position: relative;
+    max-width: 320px;
+    width: 100%;
+    background: #334155;
+    border-radius: 9999px;
     padding: 4px;
-    border: 1px solid var(--border);
   }
-  .toggle button {
-    padding: 9px 28px;
+  .toggle-container button {
+    width: 50%;
+    padding: 0.5rem 1rem;
     border: none;
-    border-radius: 999px;
+    border-radius: 9999px;
     background: transparent;
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    color: var(--text);
+    font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+    white-space: nowrap;
   }
-  .toggle button.active {
+  .toggle-pill {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
     background: var(--accent);
-    color: #0f0f23;
-    font-weight: 600;
+    border-radius: 9999px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
   }
+  .toggle-pill.tor { transform: translateX(100%); }
+  .toggle-container button.active { color: #0f172a; font-weight: 600; }
 
-  /* Connection layout */
+  /* Connection layout — matches Electrs Bitcoin: QR col-span-4, fields col-span-8 */
   .conn-section {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
     align-items: start;
   }
   @media (max-width: 640px) {
     .conn-section { grid-template-columns: 1fr; justify-items: center; }
   }
 
-  /* QR */
+  /* QR — 220px like Electrs Bitcoin */
   .qr-container {
     background: white;
-    padding: 12px;
+    padding: 16px;
     border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    position: relative;
   }
   .qr-container canvas { display: block; }
+  .qr-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 25%;
+    height: 25%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
 
-  /* Fields */
+  /* Fields — matches Electrs Bitcoin: dashed border, mono font, uppercase label */
   .fields { flex: 1; width: 100%; }
-  .field { margin-bottom: 0.85rem; }
+  .field { margin-bottom: 1rem; }
   .field-label {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--text-muted);
     letter-spacing: 0.5px;
-    margin-bottom: 5px;
+    margin-bottom: 0.25rem;
   }
   .field-value {
     display: flex;
     align-items: center;
     background: var(--input-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 15px;
-    font-size: 0.9rem;
-    font-family: 'SF Mono', 'Fira Code', monospace;
+    border: 2px dashed var(--border);
+    border-radius: 0;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
     word-break: break-all;
+    margin-top: 0.25rem;
   }
   .field-value span { flex: 1; }
   .copy-btn {
     background: none;
     border: none;
-    color: var(--text-muted);
+    color: #c3c6d1;
     cursor: pointer;
     padding: 3px;
     flex-shrink: 0;
@@ -155,18 +177,18 @@
     transition: color 0.2s;
   }
   .copy-btn:hover { color: var(--text); }
-  .copy-btn svg { width: 20px; height: 20px; }
+  .copy-btn svg { width: 18px; height: 18px; }
   .copied { color: var(--accent) !important; }
 
-  .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+  .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
-  /* Footer */
+  /* Footer — matches Electrs Bitcoin separator */
   .footer {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 3rem;
     border-top: 1px solid var(--border);
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 1.125rem;
     line-height: 1.6;
   }
 </style>
@@ -180,18 +202,14 @@
   <div class="header">
     <img class="header-icon" src="icon.svg" alt="Electrs Liquid">
     <div class="header-info">
-      <div class="header-top">
-        <h1 class="app-name">Electrs Liquid</h1>
-        <span class="sync-badge synced" id="syncBadge">
-          <span class="sync-badge-dot"></span>
-          <span id="syncBadgeText">Synchronized</span>
-        </span>
+      <div class="sync-indicator synced" id="syncIndicator">
+        <span class="sync-dot"></span>
+        <span class="sync-text" id="syncText">Running</span>
       </div>
+      <h1 class="app-name">Electrs Liquid</h1>
       <div class="version" id="blockHeight"></div>
     </div>
   </div>
-
-  <div class="separator"></div>
 
   <!-- Description -->
   <p class="description">
@@ -200,7 +218,8 @@
 
   <!-- Network Toggle -->
   <div class="toggle-wrapper">
-    <div class="toggle">
+    <div class="toggle-container">
+      <span class="toggle-pill" id="togglePill"></span>
       <button class="active" id="btnLocal" onclick="selectNetwork('local')">Local Network</button>
       <button id="btnTor" onclick="selectNetwork('tor')">Tor</button>
     </div>
@@ -210,14 +229,15 @@
   <div class="conn-section">
     <div class="qr-container">
       <canvas id="qrCanvas"></canvas>
+      <img class="qr-logo" src="icon.svg" alt="" id="qrLogo">
     </div>
     <div class="fields">
       <div class="field">
-        <div class="field-label">Host</div>
+        <div class="field-label">Address</div>
         <div class="field-value">
           <span id="host">Loading...</span>
           <button class="copy-btn" onclick="copyField('host', this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.9336 18H4.21875C2.66789 18 1.40625 16.7384 1.40625 15.1875V5.66016C1.40625 4.1093 2.66789 2.84766 4.21875 2.84766H10.9336C12.4845 2.84766 13.7461 4.1093 13.7461 5.66016V15.1875C13.7461 16.7384 12.4845 18 10.9336 18ZM4.21875 4.25391C3.44339 4.25391 2.8125 4.8848 2.8125 5.66016V15.1875C2.8125 15.9629 3.44339 16.5938 4.21875 16.5938H10.9336C11.709 16.5938 12.3398 15.9629 12.3398 15.1875V5.66016C12.3398 4.8848 11.709 4.25391 10.9336 4.25391H4.21875ZM16.5586 13.4297V2.8125C16.5586 1.26164 15.297 0 13.7461 0H5.94141C5.55304 0 5.23828 0.314758 5.23828 0.703125C5.23828 1.09149 5.55304 1.40625 5.94141 1.40625H13.7461C14.5215 1.40625 15.1523 2.03714 15.1523 2.8125V13.4297C15.1523 13.8181 15.4671 14.1328 15.8555 14.1328C16.2438 14.1328 16.5586 13.8181 16.5586 13.4297Z" fill="#C3C6D1"/></svg>
           </button>
         </div>
       </div>
@@ -227,13 +247,13 @@
           <div class="field-value">
             <span id="port">60601</span>
             <button class="copy-btn" onclick="copyField('port', this)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.9336 18H4.21875C2.66789 18 1.40625 16.7384 1.40625 15.1875V5.66016C1.40625 4.1093 2.66789 2.84766 4.21875 2.84766H10.9336C12.4845 2.84766 13.7461 4.1093 13.7461 5.66016V15.1875C13.7461 16.7384 12.4845 18 10.9336 18ZM4.21875 4.25391C3.44339 4.25391 2.8125 4.8848 2.8125 5.66016V15.1875C2.8125 15.9629 3.44339 16.5938 4.21875 16.5938H10.9336C11.709 16.5938 12.3398 15.9629 12.3398 15.1875V5.66016C12.3398 4.8848 11.709 4.25391 10.9336 4.25391H4.21875ZM16.5586 13.4297V2.8125C16.5586 1.26164 15.297 0 13.7461 0H5.94141C5.55304 0 5.23828 0.314758 5.23828 0.703125C5.23828 1.09149 5.55304 1.40625 5.94141 1.40625H13.7461C14.5215 1.40625 15.1523 2.03714 15.1523 2.8125V13.4297C15.1523 13.8181 15.4671 14.1328 15.8555 14.1328C16.2438 14.1328 16.5586 13.8181 16.5586 13.4297Z" fill="#C3C6D1"/></svg>
             </button>
           </div>
         </div>
         <div class="field">
           <div class="field-label">SSL</div>
-          <div class="field-value" style="padding-right: 48px;">
+          <div class="field-value">
             <span>Disabled</span>
           </div>
         </div>
@@ -243,7 +263,7 @@
 
   <!-- Footer -->
   <div class="footer">
-    Connect your Liquid wallet using the host and port above.
+    Connect your Liquid wallet using the address and port above.
     All queries stay local &mdash; your addresses are never leaked to third-party servers.
   </div>
 
@@ -260,11 +280,12 @@ var localAddr = window.location.hostname;
 var torAddr = '${ELECTRS_TOR_ADDRESS}';
 
 function generateQR(text) {
-  var qr = new QRCode(0, 1);
+  // Use error correction level H (30%) to allow logo overlay
+  var qr = new QRCode(0, 2);
   qr.addData(text);
   qr.make();
   var canvas = document.getElementById('qrCanvas');
-  var size = 200;
+  var size = 220;
   var cellSize = size / qr.moduleCount;
   canvas.width = size;
   canvas.height = size;
@@ -276,6 +297,11 @@ function generateQR(text) {
     for (var c = 0; c < qr.moduleCount; c++)
       if (qr.getModule(r, c))
         ctx.fillRect(c * cellSize, r * cellSize, cellSize + 0.5, cellSize + 0.5);
+  // Clear center area for logo (25% of QR)
+  var logoSize = size * 0.25;
+  var logoOffset = (size - logoSize) / 2;
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(logoOffset - 2, logoOffset - 2, logoSize + 4, logoSize + 4);
 }
 
 function updateDisplay() {
@@ -289,6 +315,7 @@ function selectNetwork(network) {
   currentNetwork = network;
   document.getElementById('btnLocal').className = network === 'local' ? 'active' : '';
   document.getElementById('btnTor').className = network === 'tor' ? 'active' : '';
+  document.getElementById('togglePill').className = 'toggle-pill' + (network === 'tor' ? ' tor' : '');
   updateDisplay();
 }
 
@@ -311,9 +338,9 @@ function copyField(id, btn) {
 }
 
 function updateSyncStatus(height) {
-  document.getElementById('blockHeight').textContent = 'Block ' + height.toLocaleString();
-  document.getElementById('syncBadge').className = 'sync-badge synced';
-  document.getElementById('syncBadgeText').textContent = 'Synchronized';
+  document.getElementById('blockHeight').textContent = 'v0.5.9 — Block ' + height.toLocaleString();
+  document.getElementById('syncIndicator').className = 'sync-indicator synced';
+  document.getElementById('syncText').textContent = 'Running';
 }
 
 // torAddr is injected by envsubst at container startup
@@ -334,8 +361,8 @@ function checkStatus() {
       updateSyncStatus(h);
     }
   }).catch(function() {
-    document.getElementById('syncBadge').className = 'sync-badge syncing';
-    document.getElementById('syncBadgeText').textContent = 'Syncing';
+    document.getElementById('syncIndicator').className = 'sync-indicator syncing';
+    document.getElementById('syncText').textContent = 'Syncing';
     document.getElementById('blockHeight').textContent = 'Indexing Liquid blockchain...';
   });
 }
