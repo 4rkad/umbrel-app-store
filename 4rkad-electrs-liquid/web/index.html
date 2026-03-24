@@ -359,13 +359,13 @@ function checkStatus() {
   }).then(function(height) {
     var h = parseInt(height.trim(), 10);
     if (h > 0) {
-      if (h > lastHeight && lastHeight > 0) {
-        // Height is increasing — Electrs is still indexing
+      if (lastHeight === 0 || h > lastHeight) {
+        // First response or height increasing — assume syncing
         document.getElementById('syncIndicator').className = 'sync-indicator syncing';
         document.getElementById('syncText').textContent = 'Syncing';
         document.getElementById('blockHeight').textContent = '— Indexing Liquid blockchain... Block ' + h.toLocaleString();
       } else {
-        // Height stable — fully synced
+        // Height stable across two checks — fully synced
         updateSyncStatus(h);
       }
       lastHeight = h;
@@ -378,8 +378,12 @@ function checkStatus() {
   });
 }
 
+// First check immediately, quick recheck at 3s for accurate state, then every 15s
 checkStatus();
-setInterval(checkStatus, 15000);
+setTimeout(function() {
+  checkStatus();
+  setInterval(checkStatus, 15000);
+}, 3000);
 </script>
 </body>
 </html>
