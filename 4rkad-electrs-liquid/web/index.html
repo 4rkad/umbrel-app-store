@@ -371,10 +371,10 @@ function checkStatus() {
       lastHeight = h;
     }
   }).catch(function() {
-    // Electrs not responding — Elements Core likely not synced yet
+    // Electrs not responding yet — starting up or Elements not ready
     document.getElementById('syncIndicator').className = 'sync-indicator syncing';
-    document.getElementById('syncText').textContent = 'Waiting';
-    document.getElementById('blockHeight').textContent = '— Waiting for Elements Core to finish syncing...';
+    document.getElementById('syncText').textContent = 'Starting';
+    document.getElementById('blockHeight').textContent = '— Connecting to Elements Core...';
   });
 }
 
