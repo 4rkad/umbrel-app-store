@@ -21,7 +21,6 @@ services:
     ports:
       - "60601:60601"
     stop_grace_period: 30s
-    user: "1000:1000"
     mem_limit: 4g
     volumes:
       - "${APP_DATA_DIR}/data/electrs:/data"
