@@ -207,7 +207,7 @@
         <span class="sync-text" id="syncText">Running</span>
       </div>
       <h1 class="app-name">Electrs Liquid</h1>
-      <div class="version" id="blockHeight"></div>
+      <div class="version">v0.5.9 <span id="blockHeight"></span></div>
     </div>
   </div>
 
@@ -338,7 +338,7 @@ function copyField(id, btn) {
 }
 
 function updateSyncStatus(height) {
-  document.getElementById('blockHeight').textContent = 'v0.5.9 — Block ' + height.toLocaleString();
+  document.getElementById('blockHeight').textContent = '— Block ' + height.toLocaleString();
   document.getElementById('syncIndicator').className = 'sync-indicator synced';
   document.getElementById('syncText').textContent = 'Running';
 }
@@ -363,7 +363,7 @@ function checkStatus() {
   }).catch(function() {
     document.getElementById('syncIndicator').className = 'sync-indicator syncing';
     document.getElementById('syncText').textContent = 'Syncing';
-    document.getElementById('blockHeight').textContent = 'Indexing Liquid blockchain...';
+    document.getElementById('blockHeight').textContent = '— Indexing Liquid blockchain...';
   });
 }
 
