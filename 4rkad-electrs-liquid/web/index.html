@@ -32,7 +32,7 @@
     padding: 3rem 1.5rem;
     min-height: 100vh;
   }
-  .container { max-width: 600px; width: 100%; }
+  .container { max-width: 750px; width: 100%; font-size: 1.1rem; }
 
   /* Header */
   .header {
@@ -41,10 +41,10 @@
     gap: 1rem;
     margin-bottom: 0.5rem;
   }
-  .header-icon { width: 56px; height: 56px; border-radius: 12px; }
+  .header-icon { width: 70px; height: 70px; border-radius: 14px; }
   .header-info { flex: 1; }
   .header-top { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-  .app-name { font-size: 1.6rem; font-weight: 700; }
+  .app-name { font-size: 2rem; font-weight: 700; }
   .version { color: var(--text-muted); font-size: 0.8rem; }
   .sync-badge {
     display: inline-flex;
@@ -242,7 +242,7 @@
 
   <!-- Footer -->
   <div class="footer">
-    Connect your Liquid wallet (Ibis, Blockstream Green, etc.) using the address and port above.
+    Connect your Liquid wallet using the address and port above.
     All queries stay local &mdash; your addresses are never leaked to third-party servers.
   </div>
 
@@ -263,7 +263,7 @@ function generateQR(text) {
   qr.addData(text);
   qr.make();
   var canvas = document.getElementById('qrCanvas');
-  var size = 148;
+  var size = 180;
   var cellSize = size / qr.moduleCount;
   canvas.width = size;
   canvas.height = size;
