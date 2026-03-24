@@ -18,6 +18,8 @@ services:
   electrs:
     image: ghcr.io/4rkad/electrs-liquid:latest
     restart: on-failure
+    ports:
+      - "60601:60601"
     stop_grace_period: 30s
     user: "1000:1000"
     mem_limit: 4g
