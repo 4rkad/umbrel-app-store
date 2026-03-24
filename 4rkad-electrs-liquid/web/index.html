@@ -24,50 +24,13 @@
     min-height: 100vh;
   }
 
-  /* ===== LOADING SCREEN ===== */
-  .loading-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 2rem;
-  }
-  .loading-screen.hidden { display: none; }
-  .loading-logo { width: 120px; height: 120px; margin-bottom: 2rem; }
-  .loading-bar-wrapper {
-    width: 240px;
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-  }
-  .loading-bar-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 2px;
-    transition: width 1s ease;
-  }
-  .loading-text {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-  .loading-app-name {
-    color: var(--accent);
-    font-size: 0.85rem;
-    margin-top: 3rem;
-    letter-spacing: 0.5px;
-  }
-
   /* ===== MAIN SCREEN ===== */
   .main-screen {
-    display: none;
+    display: flex;
     justify-content: center;
     padding: 3rem 1.5rem;
     min-height: 100vh;
   }
-  .main-screen.visible { display: flex; }
   .container { max-width: 600px; width: 100%; }
 
   /* Header */
@@ -208,17 +171,6 @@
 </head>
 <body>
 
-<!-- Loading Screen -->
-<div class="loading-screen" id="loadingScreen">
-  <img class="loading-logo" src="icon.svg" alt="Electrs Liquid">
-  <div class="loading-bar-wrapper">
-    <div class="loading-bar-fill" id="loadingBar" style="width: 0%"></div>
-  </div>
-  <div class="loading-text" id="loadingText">Connecting...</div>
-  <div class="loading-app-name">Electrs Liquid</div>
-</div>
-
-<!-- Main Screen -->
 <div class="main-screen" id="mainScreen">
 <div class="container">
 
@@ -304,7 +256,6 @@ var PORT = '60601';
 var currentNetwork = 'local';
 var localAddr = window.location.hostname;
 var torAddr = '';
-var synced = false;
 
 function generateQR(text) {
   var qr = new QRCode(0, 1);
@@ -356,25 +307,10 @@ function copyField(id, btn) {
   setTimeout(function() { btn.classList.remove('copied'); }, 1500);
 }
 
-function showMainScreen(height) {
-  document.getElementById('loadingScreen').classList.add('hidden');
-  document.getElementById('mainScreen').classList.add('visible');
+function updateSyncStatus(height) {
   document.getElementById('blockHeight').textContent = 'Block ' + height.toLocaleString();
-  updateDisplay();
-}
-
-function showSyncing(msg) {
-  document.getElementById('loadingText').textContent = msg || 'Indexing Liquid blockchain...';
-  // Animate loading bar back and forth
-  var bar = document.getElementById('loadingBar');
-  if (!bar.dataset.animating) {
-    bar.dataset.animating = '1';
-    bar.style.width = '30%';
-    setInterval(function() {
-      var w = parseInt(bar.style.width) || 30;
-      bar.style.width = (w >= 70 ? 30 : w + 10) + '%';
-    }, 1500);
-  }
+  document.getElementById('syncBadge').className = 'sync-badge synced';
+  document.getElementById('syncBadgeText').textContent = 'Synchronized';
 }
 
 // Fetch Tor hostname
@@ -394,6 +330,9 @@ function fetchTorHostname() {
 }
 fetchTorHostname();
 
+// Initialize display immediately
+updateDisplay();
+
 // Status check
 function checkStatus() {
   fetch('/api/blocks/tip/height').then(function(r) {
@@ -402,22 +341,17 @@ function checkStatus() {
   }).then(function(height) {
     var h = parseInt(height.trim(), 10);
     if (h > 0) {
-      synced = true;
-      showMainScreen(h);
-      // Keep updating block height
-      document.getElementById('blockHeight').textContent = 'Block ' + h.toLocaleString();
-    } else {
-      showSyncing('Waiting for Electrs to start...');
+      updateSyncStatus(h);
     }
   }).catch(function() {
-    if (!synced) {
-      showSyncing('Indexing Liquid blockchain...');
-    }
+    document.getElementById('syncBadge').className = 'sync-badge syncing';
+    document.getElementById('syncBadgeText').textContent = 'Syncing';
+    document.getElementById('blockHeight').textContent = 'Indexing Liquid blockchain...';
   });
 }
 
 checkStatus();
-setInterval(checkStatus, 10000);
+setInterval(checkStatus, 15000);
 </script>
 </body>
 </html>
