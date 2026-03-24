@@ -10,10 +10,12 @@ services:
     image: nginx:1.27-alpine
     restart: on-failure
     volumes:
-      - ${APP_DATA_DIR}/web/index.html:/usr/share/nginx/html/index.html:ro
+      - ${APP_DATA_DIR}/web/index.html:/tmp/index.template.html:ro
       - ${APP_DATA_DIR}/web/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ${APP_DATA_DIR}/icon.svg:/usr/share/nginx/html/icon.svg:ro
-      - ${TOR_DATA_DIR}/app-${APP_ID}/main:/run/tor-data:ro
+    environment:
+      ELECTRS_TOR_ADDRESS: "${APP_ELECTRS_LIQUID_RPC_HIDDEN_SERVICE}"
+    command: ["sh", "-c", "envsubst '$$ELECTRS_TOR_ADDRESS' < /tmp/index.template.html > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"]
 
   electrs:
     image: ghcr.io/4rkad/electrs-liquid:latest

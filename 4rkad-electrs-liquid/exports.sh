@@ -8,3 +8,7 @@ if [ -n "$elements_container" ]; then
     elements_rpc_pass=$(docker inspect "$elements_container" --format '{{range .Config.Cmd}}{{.}} {{end}}' 2>/dev/null | grep -oP '(?<=-rpcpassword=)\S+' | head -1)
 fi
 export APP_ELECTRS_LIQUID_ELEMENTS_RPC_PASS="${elements_rpc_pass:-}"
+
+# Tor onion address
+local rpc_hidden_service_file="${EXPORTS_TOR_DATA_DIR}/app-${EXPORTS_APP_ID}/main/hostname"
+export APP_ELECTRS_LIQUID_RPC_HIDDEN_SERVICE="$(cat "${rpc_hidden_service_file}" 2>/dev/null || echo "")"
