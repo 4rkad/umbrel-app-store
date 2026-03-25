@@ -14,7 +14,7 @@ fi
 # Persist password for reboots (pattern from Bitcoin app .env)
 local pass_file="${EXPORTS_APP_DIR}/data/electrs/.elements_rpc_pass"
 if [ -n "$elements_rpc_pass" ]; then
-    echo "$elements_rpc_pass" > "$pass_file" 2>/dev/null || true
+    (echo "$elements_rpc_pass" > "$pass_file" && chmod 600 "$pass_file") 2>/dev/null || true
 elif [ -f "$pass_file" ]; then
     elements_rpc_pass=$(cat "$pass_file" 2>/dev/null)
 fi
