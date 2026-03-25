@@ -1,7 +1,7 @@
 export APP_ELECTRS_LIQUID_NODE_PORT="60601"
 
 # App version — update here when bumping version in umbrel-app.yml
-export APP_ELECTRS_LIQUID_VERSION="0.7.3"
+export APP_ELECTRS_LIQUID_VERSION="0.7.4"
 
 # Elements RPC password
 # Try docker inspect first (works when Elements is running)
