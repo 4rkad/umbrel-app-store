@@ -37,8 +37,6 @@ services:
       - liquid
       - --daemon-rpc-addr
       - "elements_node_1:7041"
-      - --cookie
-      - "elements:${APP_ELECTRS_LIQUID_ELEMENTS_RPC_PASS}"
       - --electrum-rpc-addr
       - "0.0.0.0:60601"
       - --http-addr
