@@ -350,15 +350,9 @@ if (torAddr.indexOf('.onion') === -1) torAddr = '';
 // Initialize display immediately
 updateDisplay();
 
-// Estimate current Liquid tip: ~1 block/min since genesis (2018-10-12)
-var liquidGenesis = new Date('2018-10-12T00:00:00Z').getTime();
-function estimatedTip() {
-  return Math.floor((Date.now() - liquidGenesis) / 60000);
-}
-
 // Status check — distinguish Elements not synced vs Electrs indexing
 var lastHeight = 0;
-var failCount = 0;
+var checkCount = 0;
 function checkStatus() {
   fetch('/api/blocks/tip/height').then(function(r) {
     if (!r.ok) throw new Error(r.status);
@@ -366,19 +360,15 @@ function checkStatus() {
   }).then(function(height) {
     var h = parseInt(height.trim(), 10);
     if (h > 0) {
-      failCount = 0;
+      checkCount++;
       if (lastHeight === 0) {
-        // First response — show Running, recheck soon to detect sync
+        // First response — don't show Syncing yet, wait for second check
         lastHeight = h;
-        updateSyncStatus(h);
-        setTimeout(checkStatus, 2000);
       } else if (h > lastHeight + 10) {
         // Height jumping fast — definitely syncing
-        var tip = estimatedTip();
-        var pct = Math.min(99, Math.floor(h / tip * 100));
         document.getElementById('syncIndicator').className = 'sync-indicator syncing';
         document.getElementById('syncText').textContent = 'Syncing';
-        document.getElementById('blockHeight').textContent = '— Indexing block ' + h.toLocaleString() + ' / ~' + tip.toLocaleString() + ' (' + pct + '%)';
+        document.getElementById('blockHeight').textContent = '— Indexing Liquid blockchain... Block ' + h.toLocaleString();
         lastHeight = h;
       } else {
         // Height stable or moving slowly (1-2 new blocks) — synced
@@ -387,13 +377,10 @@ function checkStatus() {
       }
     }
   }).catch(function() {
-    failCount++;
-    // Only show Starting after 3 consecutive failures (tolerate brief disconnects)
-    if (failCount >= 3) {
-      document.getElementById('syncIndicator').className = 'sync-indicator syncing';
-      document.getElementById('syncText').textContent = 'Starting';
-      document.getElementById('blockHeight').textContent = '— Connecting to Elements Core...';
-    }
+    // Electrs not responding yet — starting up or Elements not ready
+    document.getElementById('syncIndicator').className = 'sync-indicator syncing';
+    document.getElementById('syncText').textContent = 'Starting';
+    document.getElementById('blockHeight').textContent = '— Connecting to Elements Core...';
   });
 }
 
