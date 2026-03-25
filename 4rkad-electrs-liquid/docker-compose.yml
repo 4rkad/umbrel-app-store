@@ -32,7 +32,7 @@ services:
     environment:
       ELEMENTS_RPC_PASSWORD: "${APP_ELECTRS_LIQUID_ELEMENTS_RPC_PASS}"
     command:
-      - -v
+      - -vv
       - --network
       - liquid
       - --daemon-rpc-addr

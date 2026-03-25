@@ -358,7 +358,7 @@ function estimatedTip() {
 
 // Status check — distinguish Elements not synced vs Electrs indexing
 var lastHeight = 0;
-var checkCount = 0;
+var failCount = 0;
 function checkStatus() {
   fetch('/api/blocks/tip/height').then(function(r) {
     if (!r.ok) throw new Error(r.status);
@@ -366,7 +366,7 @@ function checkStatus() {
   }).then(function(height) {
     var h = parseInt(height.trim(), 10);
     if (h > 0) {
-      checkCount++;
+      failCount = 0;
       if (lastHeight === 0) {
         // First response — show Running, recheck soon to detect sync
         lastHeight = h;
@@ -387,10 +387,13 @@ function checkStatus() {
       }
     }
   }).catch(function() {
-    // Electrs not responding yet — starting up or Elements not ready
-    document.getElementById('syncIndicator').className = 'sync-indicator syncing';
-    document.getElementById('syncText').textContent = 'Starting';
-    document.getElementById('blockHeight').textContent = '— Connecting to Elements Core...';
+    failCount++;
+    // Only show Starting after 3 consecutive failures (tolerate brief disconnects)
+    if (failCount >= 3) {
+      document.getElementById('syncIndicator').className = 'sync-indicator syncing';
+      document.getElementById('syncText').textContent = 'Starting';
+      document.getElementById('blockHeight').textContent = '— Connecting to Elements Core...';
+    }
   });
 }
 
