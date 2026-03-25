@@ -350,6 +350,12 @@ if (torAddr.indexOf('.onion') === -1) torAddr = '';
 // Initialize display immediately
 updateDisplay();
 
+// Estimate current Liquid tip: ~1 block/min since genesis (2018-10-12)
+var liquidGenesis = new Date('2018-10-12T00:00:00Z').getTime();
+function estimatedTip() {
+  return Math.floor((Date.now() - liquidGenesis) / 60000);
+}
+
 // Status check — distinguish Elements not synced vs Electrs indexing
 var lastHeight = 0;
 var checkCount = 0;
@@ -366,9 +372,11 @@ function checkStatus() {
         lastHeight = h;
       } else if (h > lastHeight + 10) {
         // Height jumping fast — definitely syncing
+        var tip = estimatedTip();
+        var pct = Math.min(99, Math.floor(h / tip * 100));
         document.getElementById('syncIndicator').className = 'sync-indicator syncing';
         document.getElementById('syncText').textContent = 'Syncing';
-        document.getElementById('blockHeight').textContent = '— Indexing Liquid blockchain... Block ' + h.toLocaleString();
+        document.getElementById('blockHeight').textContent = '— Indexing block ' + h.toLocaleString() + ' / ~' + tip.toLocaleString() + ' (' + pct + '%)';
         lastHeight = h;
       } else {
         // Height stable or moving slowly (1-2 new blocks) — synced
