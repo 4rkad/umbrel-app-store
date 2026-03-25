@@ -368,8 +368,10 @@ function checkStatus() {
     if (h > 0) {
       checkCount++;
       if (lastHeight === 0) {
-        // First response — don't show Syncing yet, wait for second check
+        // First response — show Running, recheck soon to detect sync
         lastHeight = h;
+        updateSyncStatus(h);
+        setTimeout(checkStatus, 2000);
       } else if (h > lastHeight + 10) {
         // Height jumping fast — definitely syncing
         var tip = estimatedTip();
