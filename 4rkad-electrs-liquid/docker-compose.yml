@@ -16,7 +16,7 @@ services:
       - ${APP_DATA_DIR}/web/umbrel-qr-icon.svg:/usr/share/nginx/html/umbrel-qr-icon.svg:ro
     environment:
       ELECTRS_TOR_ADDRESS: "${APP_ELECTRS_LIQUID_RPC_HIDDEN_SERVICE}"
-      ELECTRS_LIQUID_VERSION: "${APP_ELECTRS_LIQUID_VERSION}"
+      ELECTRS_LIQUID_VERSION: "${APP_VERSION}"
     command: ["sh", "-c", "envsubst '$$ELECTRS_TOR_ADDRESS $$ELECTRS_LIQUID_VERSION' < /tmp/index.template.html > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"]
 
   electrs:
