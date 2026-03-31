@@ -19,6 +19,14 @@ services:
       ELECTRS_LIQUID_VERSION: "${APP_VERSION}"
     command: ["sh", "-c", "envsubst '$$ELECTRS_TOR_ADDRESS $$ELECTRS_LIQUID_VERSION' < /tmp/index.template.html > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"]
 
+  api_cors:
+    image: nginx:1.27-alpine
+    restart: on-failure
+    ports:
+      - "3001:3001"
+    volumes:
+      - ${APP_DATA_DIR}/web/api-cors.conf:/etc/nginx/conf.d/default.conf:ro
+
   electrs:
     image: ghcr.io/4rkad/electrs-liquid:latest
     restart: always
