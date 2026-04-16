@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.7.14"
+version: "0.7.15"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
@@ -22,8 +22,8 @@ description: >-
 
   Requires the Elements Core app to be installed and synced.
 releaseNotes: >-
-  Move CORS proxy from port 3002 to 9130 to avoid conflict with other Umbrel apps.
-  Update Lendingfolio or other clients to use port 9130.
+  Fix Tor hidden service: create data directory before starting Tor to prevent
+  crash loop on community app stores where Umbrel does not pre-create the directory.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
 developer: 4rkad
 website: https://github.com/4rkad

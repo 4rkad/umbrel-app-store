@@ -68,3 +68,4 @@ services:
       - ${TOR_DATA_DIR}:/data
     environment:
       HOME: "/tmp"
+    command: ["sh", "-c", "mkdir -p /data/app-4rkad-electrs-liquid/main && exec tor -f /etc/tor/torrc"]
