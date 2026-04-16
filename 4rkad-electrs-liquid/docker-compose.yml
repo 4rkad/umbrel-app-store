@@ -64,9 +64,8 @@ services:
     user: "1000:1000"
     restart: on-failure
     volumes:
-      - ${APP_DATA_DIR}/torrc:/etc/tor/torrc:ro
       - ${TOR_DATA_DIR}:/data
     environment:
       HOME: "/tmp"
     entrypoint: ["/bin/sh", "-c"]
-    command: ["mkdir -p /data/app-4rkad-electrs-liquid/main && exec tor -f /etc/tor/torrc"]
+    command: ["mkdir -p /data/app-4rkad-electrs-liquid/main && chmod 700 /data/app-4rkad-electrs-liquid/main && echo 'HiddenServiceDir /data/app-4rkad-electrs-liquid/main\nHiddenServicePort 60601 electrs:60601' > /tmp/torrc && exec tor -f /tmp/torrc"]

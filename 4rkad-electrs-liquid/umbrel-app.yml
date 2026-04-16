@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-electrs-liquid
 category: bitcoin
 name: Electrs Liquid
-version: "0.7.16"
+version: "0.7.17"
 tagline: Personal Electrum server for the Liquid Network
 description: >-
   Run your personal Electrum server for the Liquid Network and connect your
@@ -22,9 +22,9 @@ description: >-
 
   Requires the Elements Core app to be installed and synced.
 releaseNotes: >-
-  Fix Tor hidden service: override entrypoint to run mkdir before Tor starts.
-  The Tor image has ENTRYPOINT ["tor"], so command alone was interpreted as Tor
-  flags instead of shell commands.
+  Fix Tor hidden service: generate torrc at runtime (fixes update path where
+  old torrc is not overwritten), use Docker service name instead of container
+  name, set directory permissions to 700 as required by Tor.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-electrs-liquid/icon.svg
 developer: 4rkad
 website: https://github.com/4rkad
