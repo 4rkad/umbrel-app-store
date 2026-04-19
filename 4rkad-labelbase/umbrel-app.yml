@@ -37,10 +37,6 @@ submission: https://github.com/4rkad/umbrel-app-store
 repo: https://github.com/Labelbase/Labelbase
 support: https://github.com/Labelbase/Labelbase/issues
 port: 8080
-gallery:
-  - 1.jpg
-  - 2.jpg
-  - 3.jpg
 path: ""
 defaultUsername: ""
 defaultPassword: ""
