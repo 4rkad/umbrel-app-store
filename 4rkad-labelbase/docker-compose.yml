@@ -36,7 +36,7 @@ services:
       MYSQL_USER: ulabelbase
       MYSQL_PASSWORD: ${APP_MYSQL_PASSWORD}
     volumes:
-      - ${APP_DATA_DIR}/data/config.ini:/app/labellabor/config.ini
+      - ${APP_DATA_DIR}/data/config.ini:/app/config.ini
       - ${APP_DATA_DIR}/data/static:/app/static
       - ${APP_DATA_DIR}/data/media:/app/media
     command: /app/run.sh
