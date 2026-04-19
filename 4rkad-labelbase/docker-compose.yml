@@ -43,7 +43,6 @@ services:
 
   web:
     image: nginx:1.27-alpine
-    user: "1000:1000"
     restart: on-failure
     depends_on:
       - django
