@@ -24,8 +24,6 @@ services:
       - --collation-server=utf8mb4_unicode_ci
 
   django:
-    # Build this image once on the Umbrel host (see README in this app folder).
-    # Tag must match exactly:  ghcr.io/4rkad/labelbase-django:2.3.0
     image: ghcr.io/4rkad/labelbase-django:2.3.0
     user: "1000:1000"
     restart: on-failure
