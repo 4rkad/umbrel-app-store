@@ -7,6 +7,7 @@ export APP_DJANGO_CRYPTO_SALT=$(derive_entropy "app-4rkad-labelbase-django-crypt
 
 DATA_DIR="${EXPORTS_APP_DIR}/data"
 mkdir -p "${DATA_DIR}/mysql" "${DATA_DIR}/static" "${DATA_DIR}/media"
+touch "${DATA_DIR}/labelbase.log"
 chown -R 1000:1000 "${DATA_DIR}"
 
 CONFIG_FILE="${DATA_DIR}/config.ini"
