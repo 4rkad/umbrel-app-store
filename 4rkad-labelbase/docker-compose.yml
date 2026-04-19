@@ -30,7 +30,7 @@ services:
       start_period: 20s
 
   django:
-    image: ghcr.io/4rkad/labelbase-django:2.3.0-4rkad.1
+    image: ghcr.io/4rkad/labelbase-django:2.3.0-4rkad.2
     user: "1000:1000"
     restart: on-failure
     depends_on:
@@ -42,6 +42,9 @@ services:
       MYSQL_DATABASE: labelbase
       MYSQL_USER: ulabelbase
       MYSQL_PASSWORD: ${APP_MYSQL_PASSWORD}
+      UMBREL_ELECTRUM_HOSTNAME: ${APP_ELECTRS_NODE_IP}
+      UMBREL_ELECTRUM_PORTS: "t50001"
+      UMBREL_MEMPOOL_ENDPOINT: "http://${APP_MEMPOOL_IP}:${APP_MEMPOOL_PORT}"
     volumes:
       - ${APP_DATA_DIR}/data/config.ini:/app/config.ini
       - ${APP_DATA_DIR}/data/labelbase.log:/app/labelbase.log

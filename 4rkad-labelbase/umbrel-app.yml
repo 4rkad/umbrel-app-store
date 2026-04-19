@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
-version: "2.3.0-4rkad.1"
+version: "2.3.0-4rkad.2"
 tagline: Self-hosted BIP-329 label management for Bitcoin wallets
 description: >-
   Labelbase is a self-hosted label management service for Bitcoin transactions,
@@ -29,7 +29,12 @@ description: >-
   All label data is encrypted at rest in the local MySQL database. Nothing
   leaves your node.
 releaseNotes: >-
-  Initial 4rkad community packaging of Labelbase 2.3.0.
+  - Auto-configure Electrum and mempool endpoints to your own Umbrel
+    Electrs and Mempool apps.
+
+  - Fix label import (MEDIA_ROOT and writable /app).
+
+  - Wait for MySQL to be healthy before starting Django.
 developer: Labelbase contributors
 website: https://labelbase.space
 submitter: 4rkad
@@ -40,4 +45,6 @@ port: 8080
 path: ""
 defaultUsername: ""
 defaultPassword: ""
-dependencies: []
+dependencies:
+  - electrs
+  - mempool
