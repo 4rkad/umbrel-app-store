@@ -5,7 +5,7 @@ export APP_MYSQL_ROOT_PASSWORD=$(derive_entropy "app-4rkad-labelbase-mysql-root-
 export APP_DJANGO_SECRET_KEY=$(derive_entropy "app-4rkad-labelbase-django-secret-key")
 export APP_DJANGO_CRYPTO_SALT=$(derive_entropy "app-4rkad-labelbase-django-crypto-salt")
 
-DATA_DIR="${APP_DATA_DIR}/data"
+DATA_DIR="${EXPORTS_APP_DIR}/data"
 mkdir -p "${DATA_DIR}/mysql" "${DATA_DIR}/static" "${DATA_DIR}/media"
 
 CONFIG_FILE="${DATA_DIR}/config.ini"
