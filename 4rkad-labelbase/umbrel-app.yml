@@ -1,4 +1,4 @@
-manifestVersion: 1
+manifestVersion: 1.1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
@@ -43,7 +43,6 @@ repo: https://github.com/Labelbase/Labelbase
 support: https://github.com/Labelbase/Labelbase/issues
 port: 8080
 path: ""
-defaultUsername: ""
 defaultPassword: ""
 dependencies:
   - electrs
