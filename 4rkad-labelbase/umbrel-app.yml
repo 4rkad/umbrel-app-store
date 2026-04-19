@@ -1,0 +1,47 @@
+manifestVersion: 1
+id: 4rkad-labelbase
+category: bitcoin
+name: Labelbase
+version: "2.3.0"
+tagline: Self-hosted BIP-329 label management for Bitcoin wallets
+description: >-
+  Labelbase is a self-hosted label management service for Bitcoin transactions,
+  addresses, outputs, inputs, xpubs and pubkeys.
+
+
+  It implements BIP-329 (Wallet Labels Export Format), so labels are portable
+  across compatible wallets like Sparrow, Specter and Nunchuk.
+
+
+  Version 2.3.0 highlights:
+
+  - Full BIP-329 extended fields (height, time, fee, value, rate, keypath, fmv).
+
+  - Currency Sync — convert legacy currency annotations into structured FMV.
+
+  - Auto-Fill missing data from blockchain.
+
+  - UTXO Health Monitoring (VTER) — color-coded fee efficiency treemap.
+
+  - Type filter tabs (Transactions, Outputs, Inputs, Addresses, Pubkeys, XPubs).
+
+
+  All label data is encrypted at rest in the local MySQL database. Nothing
+  leaves your node.
+releaseNotes: >-
+  Initial 4rkad community packaging of Labelbase 2.3.0.
+developer: Labelbase contributors
+website: https://labelbase.space
+submitter: 4rkad
+submission: https://github.com/4rkad/umbrel-app-store
+repo: https://github.com/Labelbase/Labelbase
+support: https://github.com/Labelbase/Labelbase/issues
+port: 8080
+gallery:
+  - 1.jpg
+  - 2.jpg
+  - 3.jpg
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+dependencies: []

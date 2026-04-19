@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+
+  app_proxy:
+    environment:
+      APP_HOST: 4rkad-labelbase_web_1
+      APP_PORT: 8080
+
+  mysql:
+    image: mysql:8.0.36
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 1m
+    environment:
+      MYSQL_DATABASE: labelbase
+      MYSQL_USER: ulabelbase
+      MYSQL_PASSWORD: ${APP_MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${APP_MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ${APP_DATA_DIR}/data/mysql:/var/lib/mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+  django:
+    # Build this image once on the Umbrel host (see README in this app folder).
+    # Tag must match exactly:  ghcr.io/4rkad/labelbase-django:2.3.0
+    image: ghcr.io/4rkad/labelbase-django:2.3.0
+    user: "1000:1000"
+    restart: on-failure
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: 4rkad-labelbase_mysql_1
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: labelbase
+      MYSQL_USER: ulabelbase
+      MYSQL_PASSWORD: ${APP_MYSQL_PASSWORD}
+    volumes:
+      - ${APP_DATA_DIR}/data/config.ini:/app/labellabor/config.ini
+      - ${APP_DATA_DIR}/data/static:/app/static
+      - ${APP_DATA_DIR}/data/media:/app/media
+    command: /app/run.sh
+
+  web:
+    image: nginx:1.27-alpine
+    user: "1000:1000"
+    restart: on-failure
+    depends_on:
+      - django
+    volumes:
+      - ${APP_DATA_DIR}/data/static:/app/static:ro
+      - ${APP_DATA_DIR}/data/media:/app/media:ro
+      - ${APP_DATA_DIR}/data/nginx.conf:/etc/nginx/nginx.conf:ro
