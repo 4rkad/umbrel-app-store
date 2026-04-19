@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 
 services:
 
@@ -22,13 +22,20 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${APP_MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
 
   django:
     image: ghcr.io/4rkad/labelbase-django:2.3.0
     user: "1000:1000"
     restart: on-failure
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     environment:
       MYSQL_HOST: 4rkad-labelbase_mysql_1
       MYSQL_PORT: 3306
