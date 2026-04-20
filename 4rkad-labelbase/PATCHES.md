@@ -52,7 +52,16 @@ for callable defaults that read `UMBREL_ELECTRUM_HOSTNAME`,
 environment (compose injects these from `APP_ELECTRS_NODE_IP`,
 `APP_MEMPOOL_IP:APP_MEMPOOL_PORT`).
 
-### 4. `django/labellabor/views.py` — accept canonical xpub/tpub for BIP-49/84
+### 4. `django/templates/_base.html` — honor `use_treemap` toggle
+
+The sidebar renders a "Tree Map" link inside each labelbase. Upstream
+wraps the sibling "Fiat Finances" and "Hashtags" links in
+`{% if request.user.profile.use_* %}` guards, but forgot the one for
+Tree Map — so the link showed up even when the user disabled the
+extension under Profile → Extensions. Adding the matching guard makes
+the toggle do what the UI promises.
+
+### 5. `django/labellabor/views.py` — accept canonical xpub/tpub for BIP-49/84
 
 `BitcoinAddressDatatableView.initialize_addresses()` originally matched
 `(derivation, SLIP-132 prefix)` with a six-branch `if/elif`. A canonical
@@ -63,7 +72,7 @@ error. The prefix now only decides mainnet vs testnet (`t/u/v` →
 testnet); the derivation path decides the script type. Verified against
 the official BIP-84 test vector.
 
-### 5. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
+### 6. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
 
 Callable defaults only affect rows created *after* this release.
 `umbrel_update_profile.py` is a one-shot script added to `run.sh` that

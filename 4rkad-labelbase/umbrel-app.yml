@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
-version: "2.3.0-4rkad.7"
+version: "2.3.0-4rkad.8"
 tagline: Self-hosted BIP-329 label management for Bitcoin wallets
 description: >-
   Labelbase is a self-hosted label management service for Bitcoin transactions,
@@ -29,6 +29,10 @@ description: >-
   All label data is encrypted at rest in the local MySQL database. Nothing
   leaves your node.
 releaseNotes: >-
+  - Fix: the Tree Map sidebar link now honors the Profile → Extensions
+    → Tree Map toggle. Previously the link was always shown even when
+    the extension was disabled.
+
   - Fix: canonical xpub/tpub (as exported by Bitcoin Core, Sparrow
     default, Specter) now derives addresses correctly for BIP-49 and
     BIP-84. Previously the address table appeared empty without error
