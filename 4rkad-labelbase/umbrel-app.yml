@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
-version: "2.3.0-4rkad.5"
+version: "2.3.0-4rkad.6"
 tagline: Self-hosted BIP-329 label management for Bitcoin wallets
 description: >-
   Labelbase is a self-hosted label management service for Bitcoin transactions,
@@ -29,6 +29,10 @@ description: >-
   All label data is encrypted at rest in the local MySQL database. Nothing
   leaves your node.
 releaseNotes: >-
+  - Sentry error tracking is OFF by default. Existing profiles with
+    Sentry still enabled are migrated to off on first boot. Re-enable
+    any time from Profile → Privacy.
+
   - Profile defaults now use friendly hostnames (electrs.umbrel,
     umbrel.local) so mempool links work from the browser.
 
