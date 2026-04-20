@@ -52,7 +52,18 @@ for callable defaults that read `UMBREL_ELECTRUM_HOSTNAME`,
 environment (compose injects these from `APP_ELECTRS_NODE_IP`,
 `APP_MEMPOOL_IP:APP_MEMPOOL_PORT`).
 
-### 4. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
+### 4. `django/labellabor/views.py` — accept canonical xpub/tpub for BIP-49/84
+
+`BitcoinAddressDatatableView.initialize_addresses()` originally matched
+`(derivation, SLIP-132 prefix)` with a six-branch `if/elif`. A canonical
+`xpub`/`tpub` (the form exported by Bitcoin Core, Sparrow's default and
+Specter) paired with BIP-49 or BIP-84 didn't match any branch, every
+iteration hit `continue`, and the address table rendered empty with no
+error. The prefix now only decides mainnet vs testnet (`t/u/v` →
+testnet); the derivation path decides the script type. Verified against
+the official BIP-84 test vector.
+
+### 5. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
 
 Callable defaults only affect rows created *after* this release.
 `umbrel_update_profile.py` is a one-shot script added to `run.sh` that

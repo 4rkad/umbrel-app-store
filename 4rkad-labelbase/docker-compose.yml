@@ -28,7 +28,7 @@ services:
       start_period: 20s
 
   django:
-    image: ghcr.io/4rkad/labelbase-django:2.3.0-4rkad.6
+    image: ghcr.io/4rkad/labelbase-django:2.3.0-4rkad.7
     user: "1000:1000"
     restart: on-failure
     depends_on:

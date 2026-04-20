@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
-version: "2.3.0-4rkad.6"
+version: "2.3.0-4rkad.7"
 tagline: Self-hosted BIP-329 label management for Bitcoin wallets
 description: >-
   Labelbase is a self-hosted label management service for Bitcoin transactions,
@@ -29,17 +29,19 @@ description: >-
   All label data is encrypted at rest in the local MySQL database. Nothing
   leaves your node.
 releaseNotes: >-
+  - Fix: canonical xpub/tpub (as exported by Bitcoin Core, Sparrow
+    default, Specter) now derives addresses correctly for BIP-49 and
+    BIP-84. Previously the address table appeared empty without error
+    unless the key was pre-converted to ypub/zpub/upub/vpub.
+
   - Sentry error tracking is OFF by default. Existing profiles with
     Sentry still enabled are migrated to off on first boot. Re-enable
     any time from Profile → Privacy.
 
-  - Profile defaults now use friendly hostnames (electrs.umbrel,
+  - Profile defaults use friendly hostnames (electrs.umbrel,
     umbrel.local) so mempool links work from the browser.
 
-  - Existing profiles on the old 10.21.21.x defaults are migrated on
-    first boot of this version.
-
-  - Multi-arch image — Raspberry Pi (arm64) now supported.
+  - Multi-arch image — Raspberry Pi (arm64) supported.
 
   - Auto-configure Electrum and mempool endpoints to your own Umbrel
     Electrs and Mempool apps.
