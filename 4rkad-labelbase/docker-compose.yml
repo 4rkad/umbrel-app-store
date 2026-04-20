@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
 
   app_proxy:
@@ -51,12 +49,19 @@ services:
       - ${APP_DATA_DIR}/data/static:/app/static
       - ${APP_DATA_DIR}/data/media:/app/media
     command: /app/run.sh
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request,sys; r=urllib.request.urlopen('http://localhost:8000/',timeout=3); sys.exit(0 if r.status in (200,301,302,403) else 1)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
 
   web:
     image: nginx:1.27-alpine
     restart: on-failure
     depends_on:
-      - django
+      django:
+        condition: service_healthy
     volumes:
       - ${APP_DATA_DIR}/data/static:/app/static:ro
       - ${APP_DATA_DIR}/data/media:/app/media:ro

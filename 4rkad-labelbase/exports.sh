@@ -19,7 +19,7 @@ proj_name = labelbase
 crypto_salt = labelbase_${APP_DJANGO_CRYPTO_SALT}_
 allowed_host = *
 debug = False
-current_timestamp_seconds = 0
+current_timestamp_seconds = $(date +%s)
 self_hosted = True
 sentry_dsn =
 
