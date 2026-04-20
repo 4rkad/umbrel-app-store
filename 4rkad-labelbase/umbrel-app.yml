@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
-version: "2.3.0-4rkad.4"
+version: "2.3.0-4rkad.5"
 tagline: Self-hosted BIP-329 label management for Bitcoin wallets
 description: >-
   Labelbase is a self-hosted label management service for Bitcoin transactions,
@@ -29,6 +29,12 @@ description: >-
   All label data is encrypted at rest in the local MySQL database. Nothing
   leaves your node.
 releaseNotes: >-
+  - Profile defaults now use friendly hostnames (electrs.umbrel,
+    umbrel.local) so mempool links work from the browser.
+
+  - Existing profiles on the old 10.21.21.x defaults are migrated on
+    first boot of this version.
+
   - Multi-arch image — Raspberry Pi (arm64) now supported.
 
   - Auto-configure Electrum and mempool endpoints to your own Umbrel
