@@ -85,7 +85,21 @@ error. The prefix now only decides mainnet vs testnet (`t/u/v` →
 testnet); the derivation path decides the script type. Verified against
 the official BIP-84 test vector.
 
-### 7. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
+### 7. `django/templates/_base.html` — dark-mode theme toggle
+
+Bootstrap 5's `data-bs-theme` color-mode JS was already bundled in
+`_base.html` upstream, but no button ever triggered it, so the theme
+only followed the OS's `prefers-color-scheme`. The sidebar also had
+`bg-light` hardcoded, so even when the JS did flip to dark mode the
+left rail stayed stark white.
+
+Patch adds an inline SVG sprite with the three Bootstrap
+theme icons (sun / moon / circle-half), a Light/Dark/Auto dropdown
+button in the navbar wired to the existing `#bd-theme` hook, and
+swaps the sidebar's `bg-light` for `bg-body-tertiary` so the rail
+tracks the selected theme.
+
+### 8. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
 
 Callable defaults only affect rows created *after* this release.
 `umbrel_update_profile.py` is a one-shot script added to `run.sh` that
