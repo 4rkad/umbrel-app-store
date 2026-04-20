@@ -35,6 +35,7 @@ releaseNotes: >-
   - Fix label import (MEDIA_ROOT and writable /app).
 
   - Wait for MySQL to be healthy before starting Django.
+icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-labelbase/icon.svg
 developer: Labelbase contributors
 website: https://labelbase.space
 submitter: 4rkad
@@ -42,6 +43,8 @@ submission: https://github.com/4rkad/umbrel-app-store
 repo: https://github.com/Labelbase/Labelbase
 support: https://github.com/Labelbase/Labelbase/issues
 port: 8080
+gallery:
+  - https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-labelbase/gallery/1.jpg
 path: ""
 defaultPassword: ""
 dependencies:
