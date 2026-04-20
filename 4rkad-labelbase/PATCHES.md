@@ -99,7 +99,20 @@ button in the navbar wired to the existing `#bd-theme` hook, and
 swaps the sidebar's `bg-light` for `bg-body-tertiary` so the rail
 tracks the selected theme.
 
-### 8. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
+### 8. Encrypted BIP-329 import (`importer/models.py`, `importer/views.py`, `_modal_importWizzardModal.html`)
+
+Upstream export produces `.7z` archives (AES-256 with
+`SHA256(passphrase)` as the key via `py7zr`), but import of those
+archives was never finished: the dropdown option was commented out in
+`IMPORTER_CHOICES` and the matching branch in `importer/tasks.py` was
+a `pass` with a `# TODO: Implementation needed.` comment. Patch
+un-comments the option, decrypts the archive synchronously in the
+view using `bip329.encryption.decrypt_files` (so wrong-passphrase
+errors surface in the request response), and shows the passphrase
+field in the import modal for the new type without triggering the
+samourai seed-exposure warning.
+
+### 9. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
 
 Callable defaults only affect rows created *after* this release.
 `umbrel_update_profile.py` is a one-shot script added to `run.sh` that

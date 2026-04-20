@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
-version: "2.3.0-4rkad.10"
+version: "2.3.0-4rkad.11"
 tagline: Self-hosted BIP-329 label management for Bitcoin wallets
 description: >-
   Labelbase is a self-hosted label management service for Bitcoin transactions,
@@ -29,6 +29,13 @@ description: >-
   All label data is encrypted at rest in the local MySQL database. Nothing
   leaves your node.
 releaseNotes: >-
+  - Encrypted BIP-329 import now works. Upstream had the option
+    commented out and the decrypt branch stubbed as TODO, so the
+    .7z files the export modal produces could not be re-imported.
+    The importer now accepts "BIP-329 (encrypted) .7z", asks for
+    the passphrase, and returns a clear error if the passphrase
+    is wrong.
+
   - Dark-mode polish: sidebar now follows the selected theme (was stuck
     white because it used bg-light instead of bg-body-tertiary), and a
     light/dark/auto theme switcher was added to the navbar. The
