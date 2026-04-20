@@ -52,7 +52,20 @@ for callable defaults that read `UMBREL_ELECTRUM_HOSTNAME`,
 environment (compose injects these from `APP_ELECTRS_NODE_IP`,
 `APP_MEMPOOL_IP:APP_MEMPOOL_PORT`).
 
-### 4. `django/templates/_base.html` — honor `use_treemap` toggle
+### 4. Export modal passphrase ID collision
+
+Both `ExportLabelsForm` (`labelbase/forms.py`) and `BackupFileForm`
+(`importer/forms.py`) define a `passphrase` field, so Django rendered
+both modals with `<input id="id_passphrase">` on the same page.
+jQuery's `$("#id_passphrase")` in the export modal hit the (hidden)
+import modal's input, leaving the visible export passphrase field
+greyed out and forcing silent plaintext `.jsonl` downloads. Patch the
+`labelbaseform_export` template tag with `form.auto_id = 'id_export_%s'`
+and update the six selectors in `_modal_exportLabelbaseModal.html`.
+POST field names are untouched, so `ExportLabelsView` still reads
+`request.POST['passphrase']` directly.
+
+### 5. `django/templates/_base.html` — honor `use_treemap` toggle
 
 The sidebar renders a "Tree Map" link inside each labelbase. Upstream
 wraps the sibling "Fiat Finances" and "Hashtags" links in
@@ -61,7 +74,7 @@ Tree Map — so the link showed up even when the user disabled the
 extension under Profile → Extensions. Adding the matching guard makes
 the toggle do what the UI promises.
 
-### 5. `django/labellabor/views.py` — accept canonical xpub/tpub for BIP-49/84
+### 6. `django/labellabor/views.py` — accept canonical xpub/tpub for BIP-49/84
 
 `BitcoinAddressDatatableView.initialize_addresses()` originally matched
 `(derivation, SLIP-132 prefix)` with a six-branch `if/elif`. A canonical
@@ -72,7 +85,7 @@ error. The prefix now only decides mainnet vs testnet (`t/u/v` →
 testnet); the derivation path decides the script type. Verified against
 the official BIP-84 test vector.
 
-### 6. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
+### 7. `django/run.sh` + `django/umbrel_update_profile.py` — migrate existing Profiles
 
 Callable defaults only affect rows created *after* this release.
 `umbrel_update_profile.py` is a one-shot script added to `run.sh` that

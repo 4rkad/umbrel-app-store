@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
-version: "2.3.0-4rkad.8"
+version: "2.3.0-4rkad.9"
 tagline: Self-hosted BIP-329 label management for Bitcoin wallets
 description: >-
   Labelbase is a self-hosted label management service for Bitcoin transactions,
@@ -29,6 +29,12 @@ description: >-
   All label data is encrypted at rest in the local MySQL database. Nothing
   leaves your node.
 releaseNotes: >-
+  - Fix: the "Encrypt" option in the BIP-329 export modal now works.
+    Two modals on the same page both rendered a field with
+    id="id_passphrase", so toggling Encrypt enabled the wrong (hidden)
+    input. The export passphrase field stayed greyed out and the file
+    was downloaded as plaintext. The export form now uses unique IDs.
+
   - Fix: the Tree Map sidebar link now honors the Profile → Extensions
     → Tree Map toggle. Previously the link was always shown even when
     the extension was disabled.
