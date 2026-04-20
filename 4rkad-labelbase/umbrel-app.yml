@@ -1,4 +1,4 @@
-manifestVersion: 1.1
+manifestVersion: 1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
@@ -46,6 +46,7 @@ port: 8080
 gallery:
   - https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-labelbase/gallery/1.jpg
 path: ""
+defaultUsername: ""
 defaultPassword: ""
 dependencies:
   - electrs
