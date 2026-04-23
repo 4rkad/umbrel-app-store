@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: 4rkad-next-block_web_1
+      APP_PORT: 3000
+      PROXY_AUTH_ADD: "false"
+
+  web:
+    image: ghcr.io/4rkad/next-block:1.6.0@sha256:TO_BE_PINNED_AFTER_PUSH
+    restart: on-failure
+    stop_grace_period: 1m
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: "localhost:3000"
+      BITCOIND_HOST: "${APP_BITCOIN_NODE_IP}"
+      BITCOIND_PORT: "${APP_BITCOIN_RPC_PORT}"
+      BITCOIND_USERNAME: "${APP_BITCOIN_RPC_USER}"
+      BITCOIND_PASSWORD: "${APP_BITCOIN_RPC_PASS}"

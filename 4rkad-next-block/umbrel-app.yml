@@ -1,0 +1,36 @@
+manifestVersion: 1
+id: 4rkad-next-block
+category: bitcoin
+name: Next Block
+version: "1.6.0"
+tagline: Bitcoin fee estimator powered by your own node
+description: >-
+  Next Block estimates the fee rate likely to get your Bitcoin transaction
+  confirmed in the next block. It ingests mempool data from your own Bitcoin
+  Core node via RPC and updates the UI live using Server-Sent Events (SSE).
+
+
+  The frontend of nextblock.st, self-hosted. Low / Medium / High targets plus
+  details about the most recent block, computed locally from your own mempool
+  — no third-party fee APIs.
+
+
+  Built by the Dojo Open Source Project (Samourai Wallet). Requires the
+  Bitcoin Node app to be installed and synced.
+releaseNotes: >-
+  Initial release for Umbrel. Packaged from upstream
+  Dojo-Open-Source-Project/next-block develop branch (v1.6.0).
+icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-next-block/icon.svg
+developer: Dojo Open Source Project
+website: https://nextblock.st
+dependencies:
+  - bitcoin
+repo: https://github.com/4rkad/next-block-umbrel
+support: https://github.com/4rkad/next-block-umbrel/issues
+port: 3063
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: 4rkad
+submission: ""
