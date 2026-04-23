@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: ${APP_4RKAD_CATAPULT_IP}
+      APP_PORT: ${APP_4RKAD_CATAPULT_PORT}
+
+  app:
+    image: ghcr.io/4rkad/catapult-umbrel:v0.1.0@sha256:e458ded81eaae29d971a0ac0b7065c78569d5355a99489a69bf219fd61174dad
+    init: true
+    restart: on-failure
+    stop_grace_period: 5s
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    networks:
+      default:
+        ipv4_address: ${APP_4RKAD_CATAPULT_IP}

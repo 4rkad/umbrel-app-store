@@ -1,0 +1,40 @@
+manifestVersion: 1
+id: 4rkad-catapult
+category: bitcoin
+name: Catapult
+version: "0.1.0"
+tagline: Cross-chain CoinSwap between your own BTC wallets via Liquid
+description: >-
+  Catapult is a client-side, non-custodial app that routes BTC between your
+  own wallets via Liquid, composing two independent chain swaps (Middle Way
+  BTC→L-BTC and Boltz L-BTC→BTC) to break the graph between origin and
+  destination. A CoinSwap in practice, implemented as cross-chain routing.
+
+
+  Self-to-self only. No xpubs, no passphrases, no accounts — state lives in
+  localStorage plus a URL per swap. Download two native refund files (one per
+  leg) before sending, compatible with the upstream UIs of Middle Way and
+  Boltz in case you need to recover.
+
+
+  All network calls (Middle Way, Boltz, mempool.space) happen client-side
+  from your browser. The Umbrel container is just an nginx serving the
+  static SPA behind Tor.
+releaseNotes: >-
+  v0.1.0 — Initial release. catapult pattern wired end-to-end: create Boltz
+  leg 2 first to get its Liquid lockup, feed it as destination to Middle Way
+  leg 1, user broadcasts BTC to leg 1, L-BTC lands on leg 2, cooperative
+  MuSig2 claim delivers BTC to the final destination. Mainnet only.
+developer: 4rkad
+website: https://github.com/4rkad/catapult-umbrel
+dependencies: []
+repo: https://github.com/4rkad/catapult-umbrel
+support: https://github.com/4rkad/catapult-umbrel/issues
+icon: https://raw.githubusercontent.com/4rkad/catapult-umbrel/main/umbrel/icon.png
+port: 4041
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: 4rkad
+submission: https://github.com/4rkad/catapult-umbrel
