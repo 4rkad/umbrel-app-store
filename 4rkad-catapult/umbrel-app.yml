@@ -32,8 +32,7 @@ repo: https://github.com/4rkad/catapult-umbrel
 support: https://github.com/4rkad/catapult-umbrel/issues
 icon: https://raw.githubusercontent.com/4rkad/catapult-umbrel/master/umbrel/icon.png
 port: 4041
-gallery:
-  - https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-catapult/1.jpg
+gallery: []
 path: ""
 defaultUsername: ""
 defaultPassword: ""
