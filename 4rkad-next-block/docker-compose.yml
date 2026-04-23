@@ -8,7 +8,7 @@ services:
       PROXY_AUTH_ADD: "false"
 
   web:
-    image: ghcr.io/4rkad/next-block:1.6.0@sha256:TO_BE_PINNED_AFTER_PUSH
+    image: ghcr.io/4rkad/next-block:1.6.0@sha256:0db222b2a38557ef020446e721b3b38aab24e06c72977bec9f5fdc9d0d64233a
     restart: on-failure
     stop_grace_period: 1m
     environment:
