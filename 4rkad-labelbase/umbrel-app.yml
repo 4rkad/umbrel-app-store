@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-labelbase
 category: bitcoin
 name: Labelbase
-version: "2.3.0-4rkad.12"
+version: "2.3.0-4rkad.13"
 tagline: Self-hosted BIP-329 label management for Bitcoin wallets
 description: >-
   Labelbase is a self-hosted label management service for Bitcoin transactions,
@@ -29,6 +29,11 @@ description: >-
   All label data is encrypted at rest in the local MySQL database. Nothing
   leaves your node.
 releaseNotes: >-
+  - Port changed from 8080 to 8329 to avoid conflicts with other
+    Umbrel apps that commonly use 8080. After updating, open
+    Labelbase from the Umbrel dashboard (the new URL will be
+    http://umbrel.local:8329) and update any bookmarks.
+
   - Dark-mode readability fix: the sidebar links, the profile
     dropdown menu (Profile Settings, Account Security, ...) and the
     Privacy Policy / Terms links all had a hardcoded dark text color,
@@ -86,7 +91,7 @@ submitter: 4rkad
 submission: https://github.com/4rkad/umbrel-app-store
 repo: https://github.com/Labelbase/Labelbase
 support: https://github.com/Labelbase/Labelbase/issues
-port: 8080
+port: 8329
 gallery: []
 path: ""
 defaultUsername: ""
