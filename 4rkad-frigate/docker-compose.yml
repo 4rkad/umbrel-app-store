@@ -39,7 +39,7 @@ services:
       - "57001:57001"
     volumes:
       - ${APP_DATA_DIR}/data:/data
-      - ${APP_BITCOIN_DATA_DIR}/data:/data/.bitcoin:ro
+      - ${APP_BITCOIN_DATA_DIR}/data/bitcoin:/data/.bitcoin:ro
     environment:
       APP_BITCOIN_NODE_IP: ${APP_BITCOIN_NODE_IP}
       APP_BITCOIN_RPC_PORT: ${APP_BITCOIN_RPC_PORT}
