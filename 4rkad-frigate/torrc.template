@@ -1,0 +1,2 @@
+HiddenServiceDir /data/app-4rkad-frigate/main
+HiddenServicePort 57001 server:57001
