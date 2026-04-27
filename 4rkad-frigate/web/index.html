@@ -191,7 +191,7 @@
     <div class="header-info">
       <div class="sync-indicator">
         <span class="sync-dot"></span>
-        <span class="sync-text">Running</span>
+        <span class="sync-text">Starting</span>
       </div>
       <h1 class="app-name">Frigate</h1>
       <div class="version">v${FRIGATE_VERSION}</div>
@@ -321,6 +321,70 @@ function copyField(id, btn) {
 if (torAddr.indexOf('.onion') === -1) torAddr = '';
 
 updateDisplay();
+
+var statusLastHeight = null;
+var statusStableCount = 0;
+var STATUS_FETCH_MS = 15000;
+var STABLE_TO_RUNNING = 2;
+
+function setStatus(state, height) {
+  var dot = document.querySelector('.sync-dot');
+  var text = document.querySelector('.sync-text');
+  var label, color;
+  if (state === 'indexing') {
+    label = height ? 'Indexing · Block ' + height.toLocaleString() : 'Indexing';
+    color = 'var(--orange)';
+  } else if (state === 'running') {
+    label = height ? 'Running · Block ' + height.toLocaleString() : 'Running';
+    color = 'var(--accent)';
+  } else {
+    label = 'Starting';
+    color = 'var(--orange)';
+  }
+  dot.style.background = color;
+  text.style.color = color;
+  text.textContent = label;
+}
+
+function fetchStatus() {
+  fetch('/frigate.log?_=' + Date.now(), {
+    headers: { 'Range': 'bytes=-4096' },
+    cache: 'no-store'
+  })
+    .then(function(r) {
+      if (r.status === 200 || r.status === 206) return r.text();
+      throw new Error('http ' + r.status);
+    })
+    .then(function(text) {
+      var re = /block height (\d+)/gi;
+      var m, last = null;
+      while ((m = re.exec(text)) !== null) last = m;
+      if (!last) {
+        if (statusLastHeight === null) setStatus('starting');
+        return;
+      }
+      var h = parseInt(last[1], 10);
+      if (statusLastHeight === null || h > statusLastHeight) {
+        setStatus('indexing', h);
+        statusStableCount = 0;
+      } else {
+        statusStableCount++;
+        if (statusStableCount >= STABLE_TO_RUNNING) {
+          setStatus('running', h);
+        } else {
+          setStatus('indexing', h);
+        }
+      }
+      statusLastHeight = h;
+    })
+    .catch(function() {
+      if (statusLastHeight === null) setStatus('starting');
+    });
+}
+
+setStatus('starting');
+fetchStatus();
+setInterval(fetchStatus, STATUS_FETCH_MS);
 </script>
 </body>
 </html>
