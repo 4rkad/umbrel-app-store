@@ -29,7 +29,7 @@ services:
 
   server:
     image: ghcr.io/4rkad/frigate-umbrel:1.4.1-1@sha256:de5ba75957c3563e728322e5e3adecb64a4c94348decac59bdb85266ff038d6c
-    user: "1000:1000"
+    user: "0:0"
     restart: on-failure
     stop_grace_period: 1m
     depends_on:
