@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: 4rkad-frigate_server_1
+      APP_PORT: 57001
+
+  server:
+    image: ghcr.io/4rkad/frigate-umbrel:1.4.1@sha256:47a7f16fa8eb98dda6b3e234fc9be083b073d61c86e0966eff07ce517df6c281
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "57001:57001"
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+    environment:
+      APP_BITCOIN_NODE_IP: ${APP_BITCOIN_NODE_IP}
+      APP_BITCOIN_RPC_PORT: ${APP_BITCOIN_RPC_PORT}
+      APP_BITCOIN_RPC_USER: ${APP_BITCOIN_RPC_USER}
+      APP_BITCOIN_RPC_PASS: ${APP_BITCOIN_RPC_PASS}
+      FRIGATE_NETWORK: ${APP_BITCOIN_NETWORK:-mainnet}
+      FRIGATE_COMPUTE_BACKEND: "CPU"
+      FRIGATE_PORT: "57001"

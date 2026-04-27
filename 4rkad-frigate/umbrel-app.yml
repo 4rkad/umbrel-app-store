@@ -1,0 +1,37 @@
+manifestVersion: 1
+id: 4rkad-frigate
+category: bitcoin
+name: Frigate
+version: "1.4.1"
+tagline: Silent Payments Electrum server for Sparrow Wallet
+description: >-
+  Frigate is an experimental Electrum-style server that enables Silent Payments
+  (BIP352) scanning for light clients like Sparrow Wallet.
+
+
+  It connects to your Bitcoin Node and builds a local tweak index using DuckDB,
+  then exposes Electrum-compatible methods for Silent Payments wallets to
+  subscribe and scan for incoming transactions without downloading gigabytes of
+  block filter data.
+
+
+  Built by sparrowwallet (Craig Raw). Requires the Bitcoin Node app to be
+  installed and synced. Initial indexing can take hours on mainnet (CPU-only)
+  but is fast on signet/testnet.
+releaseNotes: >-
+  Initial release for Umbrel. Packaged from upstream sparrowwallet/frigate
+  v1.4.1 (TOML config + scan audit mode).
+icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-frigate/icon.png
+developer: sparrowwallet
+website: https://github.com/sparrowwallet/frigate
+dependencies:
+  - bitcoin
+repo: https://github.com/4rkad/frigate-umbrel
+support: https://github.com/4rkad/frigate-umbrel/issues
+port: 57001
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: 4rkad
+submission: ""
