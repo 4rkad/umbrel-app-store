@@ -19,11 +19,22 @@ services:
       FRIGATE_VERSION: "${APP_VERSION}"
     command: ["sh", "-c", "envsubst '$$FRIGATE_TOR_ADDRESS $$FRIGATE_VERSION' < /tmp/index.template.html > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"]
 
+  init:
+    image: alpine:3.20
+    user: "0:0"
+    restart: "no"
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+    command: ["sh", "-c", "mkdir -p /data && chown -R 1000:1000 /data && chmod 755 /data"]
+
   server:
     image: ghcr.io/4rkad/frigate-umbrel:1.4.1-1@sha256:de5ba75957c3563e728322e5e3adecb64a4c94348decac59bdb85266ff038d6c
     user: "1000:1000"
     restart: on-failure
     stop_grace_period: 1m
+    depends_on:
+      init:
+        condition: service_completed_successfully
     ports:
       - "57001:57001"
     volumes:
