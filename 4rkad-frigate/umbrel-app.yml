@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-frigate
 category: bitcoin
 name: Frigate
-version: "1.4.1-3"
+version: "1.5.0"
 tagline: Silent Payments Electrum server for Sparrow Wallet
 description: >-
   Frigate is an experimental Electrum-style server that enables Silent Payments
@@ -19,9 +19,13 @@ description: >-
   installed and synced. Initial indexing can take hours on mainnet (CPU-only)
   but is fast on signet/testnet.
 releaseNotes: >-
-  Dashboard assets are now baked into a dedicated web container image, so
-  Umbrel updates always ship the latest UI without needing manual file
-  replacement in the app data directory.
+  Updated to Frigate 1.5.0 (upstream release 2026-05-14). New silent payments
+  subscribe protocol returns subscription identity as JSON object. ZMQ
+  sequence mempool ingestion, TLS Electrum listener (sslPort), TLS backend
+  support, improved scan lifecycle with cancellation and reorg restart,
+  notifications no longer sent on confirmations, streaming JSON parser for
+  Electrum backend notifications, DuckDB ufsecp data-race fix, and assorted
+  protocol robustness improvements. Compatible with Sparrow rama sp.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-frigate/icon.png
 developer: sparrowwallet
 website: https://github.com/sparrowwallet/frigate
