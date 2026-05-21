@@ -7,7 +7,7 @@ services:
       APP_PORT: 8080
 
   web:
-    image: ghcr.io/4rkad/frigate-umbrel-web:1.5.2-1@sha256:b47dc8ea572825ce76960ab85cc718621334dbadbb095f56a024125aef9902cb
+    image: ghcr.io/4rkad/frigate-umbrel-web:1.5.2-2@sha256:0e8c5f03aef016354c15f9122a3eb70da3577a4d8df38cd6e4301eae7a689634
     restart: on-failure
     depends_on:
       init:
@@ -29,7 +29,7 @@ services:
     command: ["sh", "-c", "mkdir -p /data && touch /data/frigate.log && chmod 644 /data/frigate.log && chown -R 1000:1000 /data && chmod 755 /data && chmod 644 /data/frigate.log"]
 
   server:
-    image: ghcr.io/4rkad/frigate-umbrel:1.5.2-1@sha256:62fb87c82b8127d81a91a73bfb27ca622734764363491bfb700c4bf453e8ed63
+    image: ghcr.io/4rkad/frigate-umbrel:1.5.2-2@sha256:e9276c86d3bc03684f7c9f9672e7e4b53ea6fdacfb7a9d64db9db7516ffea423
     user: "0:0"
     restart: on-failure
     stop_grace_period: 1m
@@ -59,4 +59,4 @@ services:
     environment:
       HOME: "/tmp"
     entrypoint: ["/bin/sh", "-c"]
-    command: ["mkdir -p /data/app-4rkad-frigate/main && chmod 700 /data/app-4rkad-frigate/main && printf 'HiddenServiceDir /data/app-4rkad-frigate/main\\nHiddenServicePort 57001 server:57001\\n' > /tmp/torrc && exec tor -f /tmp/torrc"]
+    command: ["mkdir -p /data/app-4rkad-frigate/main && chmod 700 /data/app-4rkad-frigate/main && printf 'HiddenServiceDir /data/app-4rkad-frigate/main\\nHiddenServicePort 57001 4rkad-frigate_server_1:57001\\n' > /tmp/torrc && exec tor -f /tmp/torrc"]

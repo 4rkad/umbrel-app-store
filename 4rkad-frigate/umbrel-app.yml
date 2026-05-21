@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-frigate
 category: bitcoin
 name: Frigate
-version: "1.5.2-1"
+version: "1.5.2-2"
 tagline: Silent Payments Electrum server for Sparrow Wallet
 description: >-
   Frigate is an experimental Electrum-style server that enables Silent Payments
@@ -19,25 +19,18 @@ description: >-
   installed and synced. Initial indexing can take hours on mainnet (CPU-only)
   but is fast on signet/testnet.
 releaseNotes: >-
-  Dashboard now flips to "Running" immediately when the UI opens on a
-  Frigate that has been idle at chain tip for more than 90 seconds,
-  instead of showing "Indexing" for ~30 seconds first. Falls back to
-  the previous behavior if the log timestamp can&rsquo;t be parsed.
+  Fix Tor onion forwarding: connections to the Electrum hidden service
+  on port 57001 now reach the Frigate server reliably. Previously, the
+  Docker DNS alias "server" resolved to multiple containers (one per
+  app with a "server" service on umbrel_main_network), so Tor
+  round-robined to the wrong backend most of the time. Now pinned to
+  the full container name "4rkad-frigate_server_1".
 
 
-  Includes Frigate 1.5.2 release.
-
-
-  1.5.1: Faster cold sync via getblock verbosity=3 (inlined prevout
-  scripts). JSON-RPC batching during initial mempool indexing. Indexed
-  block progress now persisted in a separate marker table. Electrum
-  transport read lock released during socket reads; per-handler write
-  lock serializes client socket writes. Fix: script-hash
-  subscribe/unsubscribe races.
-
-
-  1.5.2: Reduce verbose protocol-related ERROR logs. Restore new block
-  tip INFO log in steady state.
+  Dashboard: keep showing the current block height even when Frigate is
+  idle at chain tip (Frigate 1.5.2 stopped logging "block height N" in
+  steady state). A background poller queries bitcoind every 30s and
+  writes the line the dashboard regex needs.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-frigate/icon.png
 developer: sparrowwallet
 website: https://github.com/sparrowwallet/frigate
