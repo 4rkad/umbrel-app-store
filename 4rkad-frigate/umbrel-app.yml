@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-frigate
 category: bitcoin
 name: Frigate
-version: "1.5.2"
+version: "1.5.2-1"
 tagline: Silent Payments Electrum server for Sparrow Wallet
 description: >-
   Frigate is an experimental Electrum-style server that enables Silent Payments
@@ -19,7 +19,13 @@ description: >-
   installed and synced. Initial indexing can take hours on mainnet (CPU-only)
   but is fast on signet/testnet.
 releaseNotes: >-
-  Bump to Frigate 1.5.2.
+  Dashboard now flips to "Running" immediately when the UI opens on a
+  Frigate that has been idle at chain tip for more than 90 seconds,
+  instead of showing "Indexing" for ~30 seconds first. Falls back to
+  the previous behavior if the log timestamp can&rsquo;t be parsed.
+
+
+  Includes Frigate 1.5.2 release.
 
 
   1.5.1: Faster cold sync via getblock verbosity=3 (inlined prevout
