@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-frigate
 category: bitcoin
 name: Frigate
-version: "1.5.2-3"
+version: "1.5.2-4"
 tagline: Silent Payments Electrum server for Sparrow Wallet
 description: >-
   Frigate is an experimental Electrum-style server that enables Silent Payments
@@ -19,20 +19,22 @@ description: >-
   installed and synced. Initial indexing can take hours on mainnet (CPU-only)
   but is fast on signet/testnet.
 releaseNotes: >-
-  Fix Tor onion forwarding: connections to the Electrum hidden service
-  on port 57001 now reach the Frigate server reliably. Previously, the
-  Docker DNS alias "server" resolved to multiple containers (one per
-  app with a "server" service on umbrel_main_network), so Tor
-  round-robined to the wrong backend most of the time. Now pinned to
-  the full container name "4rkad-frigate_server_1".
+  Fix mainnet startup: the entrypoint wrote config.toml under a
+  per-network subfolder (e.g. /data/frigate/mainnet/config.toml) but
+  Frigate v1.5.2 reads it from the home directory directly
+  (/data/frigate/config.toml). On a fresh mainnet install Frigate
+  ignored the generated config and fell back to defaults, failing to
+  locate the Bitcoin Core cookie and entering a restart loop. Now the
+  entrypoint writes the config straight to the home directory.
 
 
-  Dashboard: keep showing "Running &middot; Block N" even when Frigate is
-  idle at chain tip (Frigate 1.5.2 stopped logging "block height N" in
-  steady state). A background poller queries bitcoind every 30s and
-  writes the line the dashboard regex needs, back-dated by 30 minutes
-  so the dashboard fast-path treats it as steady state instead of live
-  indexing progress.
+  Dashboard: show real indexing progress instead of flipping to
+  "Running" while syncing. The web UI now prioritises Frigate's
+  "Indexing progress: N / M blocks (P%, height H)" lines over the
+  background poller's stale-timestamped lines, so during initial sync
+  it correctly displays "Indexing &middot; Block H". The poller also
+  skips emission while Frigate is actively indexing to avoid racing
+  with the live progress logs.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-frigate/icon.png
 developer: sparrowwallet
 website: https://github.com/sparrowwallet/frigate

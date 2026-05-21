@@ -7,7 +7,7 @@ services:
       APP_PORT: 8080
 
   web:
-    image: ghcr.io/4rkad/frigate-umbrel-web:1.5.2-3@sha256:552bfac1a0e60cfad5d20388ac595da7e4381f14846a00cbf5da8cc732ad884b
+    image: ghcr.io/4rkad/frigate-umbrel-web:1.5.2-4@sha256:3bce27ed6d386cefd0fe3c0901082d702429cce38c6e85215583ba8e6e7b1b8a
     restart: on-failure
     depends_on:
       init:
@@ -29,7 +29,7 @@ services:
     command: ["sh", "-c", "mkdir -p /data && touch /data/frigate.log && chmod 644 /data/frigate.log && chown -R 1000:1000 /data && chmod 755 /data && chmod 644 /data/frigate.log"]
 
   server:
-    image: ghcr.io/4rkad/frigate-umbrel:1.5.2-3@sha256:61c1cdb2d78c04417c5578d4ad613337786849efef17aeac3334ad0e987b4203
+    image: ghcr.io/4rkad/frigate-umbrel:1.5.2-4@sha256:b78b3a1497f9dcd6fae943ac4b140876a1caa90c84eb67749acef6f6f7784763
     user: "0:0"
     restart: on-failure
     stop_grace_period: 1m
