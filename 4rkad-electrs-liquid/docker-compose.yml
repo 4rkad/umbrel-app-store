@@ -68,4 +68,4 @@ services:
     environment:
       HOME: "/tmp"
     entrypoint: ["/bin/sh", "-c"]
-    command: ["mkdir -p /data/app-4rkad-electrs-liquid/main && chmod 700 /data/app-4rkad-electrs-liquid/main && printf 'HiddenServiceDir /data/app-4rkad-electrs-liquid/main\\nHiddenServicePort 60601 electrs:60601\\n' > /tmp/torrc && exec tor -f /tmp/torrc"]
+    command: ["mkdir -p /data/app-4rkad-electrs-liquid/main && chmod 700 /data/app-4rkad-electrs-liquid/main && printf 'HiddenServiceDir /data/app-4rkad-electrs-liquid/main\\nHiddenServicePort 60601 4rkad-electrs-liquid_electrs_1:60601\\n' > /tmp/torrc && exec tor -f /tmp/torrc"]
