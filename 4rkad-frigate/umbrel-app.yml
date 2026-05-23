@@ -31,12 +31,12 @@ website: https://github.com/sparrowwallet/frigate
 dependencies:
   - bitcoin
   - electrs
-repo: https://github.com/4rkad/frigate-umbrel
-support: https://github.com/4rkad/frigate-umbrel/issues
+repo: https://github.com/semillabitcoin/frigate-umbrel
+support: https://github.com/semillabitcoin/frigate-umbrel/issues
 port: 3068
 gallery: []
 path: ""
 defaultUsername: ""
 defaultPassword: ""
-submitter: 4rkad
+submitter: semillabitcoin
 submission: ""
