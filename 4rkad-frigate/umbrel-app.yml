@@ -2,7 +2,7 @@ manifestVersion: 1
 id: 4rkad-frigate
 category: bitcoin
 name: Frigate
-version: "1.5.2-5"
+version: "1.5.3-1"
 tagline: Silent Payments Electrum server for Sparrow Wallet
 description: >-
   Frigate is an experimental Electrum-style server that enables Silent Payments
@@ -19,12 +19,12 @@ description: >-
   installed and synced. Initial indexing can take hours on mainnet (CPU-only)
   but is fast on signet/testnet.
 releaseNotes: >-
-  Enable Bitcoin Core ZMQ pubsequence for low-latency mempool
-  ingestion. Eliminates the upstream warning that Silent Payments
-  wallets may briefly display incorrect amounts during the mempool to
-  block transition, and brings mempool latency from ~5s polling to
-  sub-100ms. Configuration is automatic on Umbrel and degrades
-  gracefully to polling on hosts without ZMQ exposed.
+  Bump Frigate to upstream 1.5.3. Adds a privacy-preserving hourly
+  aggregate of historical scan stats, provides a local server.features
+  fallback when the backend returns method-not-found, improves the
+  hosts field in server.features, and fixes a three-way DuckDB
+  deadlock that could occur when interrupting a historical scan on
+  exit.
 icon: https://raw.githubusercontent.com/4rkad/umbrel-app-store/main/4rkad-frigate/icon.png
 developer: sparrowwallet
 website: https://github.com/sparrowwallet/frigate
